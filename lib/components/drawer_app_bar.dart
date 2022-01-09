@@ -37,13 +37,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
         ),
         onTap: () => {
           // Navigator.pop(context),
-          if (routeName == '/') Get.offAllNamed('/'),
-          if (routeName == '/fast-search') Get.toNamed('/fast-search'),
-          if (routeName == '/categories') Get.toNamed('/categories'),
-          if (routeName == '/orders') Get.toNamed('/orders'),
-          if (routeName == '/order-by-manager')
-            Get.toNamed('/order-by-manager'),
-          if (routeName == '/support') Get.toNamed('/support'),
+          Get.offAllNamed(routeName)
         },
       ),
     );
@@ -75,28 +69,31 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                           Container(
                             margin: EdgeInsets.only(right: 20),
                             child: CircleAvatar(
-                              radius: 30.0,
-                              child: Icon(
-                                Icons.person,
-                                color: globals.red,
-                              ),
-                              // backgroundImage: NetworkImage(
-                              //   'https://via.placeholder.com/150',
-                              // ),
-                              backgroundColor: Color(0xFFF8F8F8),
-                            ),
+                                radius: 30.0,
+                                backgroundColor: Colors.transparent,
+                                child: Image.asset(
+                                  'images/circle_avatar.png',
+                                  height: 64,
+                                  width: 64,
+                                )
+                                // backgroundImage: NetworkImage(
+                                //   'https://via.placeholder.com/150',
+                                // ),
+                                // backgroundColor: globals.borderColor,
+                                ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(right: 14),
-                            child: Text(
-                              'Войти',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                          Flexible(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 14),
+                              child: Text(
+                                'Абдувасит Абдуманнобзода',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          Icon(Icons.arrow_forward),
+                          )
                         ],
                       ),
                     ),
@@ -120,27 +117,33 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
               ),
               buildListTile(
                 context,
-                'Быстрый поиск',
+                'Новые заказы',
                 Icons.search,
-                '/fast-search',
+                '/',
               ),
               buildListTile(
                 context,
-                'Категории услуг',
+                'Предложенные заказы',
                 Icons.category,
-                '/categories',
+                '/proposed-orders',
               ),
               buildListTile(
                 context,
-                'Мои заказы',
+                'Текущие заказы',
                 Icons.list_alt,
-                '/orders',
+                '/current-orders',
               ),
               buildListTile(
                 context,
-                'Заказать через менеджера',
+                'Завершенные заказы',
                 Icons.support_agent,
-                '/order-by-manager',
+                '/completed-orders',
+              ),
+              buildListTile(
+                context,
+                'Баланс',
+                Icons.settings_suggest,
+                '/balance',
               ),
               buildListTile(
                 context,

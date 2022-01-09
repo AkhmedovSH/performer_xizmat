@@ -27,7 +27,7 @@ class _BottomBarState extends State<BottomBar> {
           break;
         case 1:
           Get.offAllNamed(
-            '/orders',
+            '/balance',
           );
           break;
         case 2:
@@ -69,13 +69,11 @@ class _BottomBarState extends State<BottomBar> {
             selectedIconTheme: IconThemeData(color: globals.black),
             items: const [
               BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: 'Главная'),
+                  icon: Icon(Icons.list_alt), label: 'Заказы'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.list_alt, color: Color(0xFF828282)),
-                  label: 'Мои заказы'),
+                  icon: Icon(Icons.account_balance_wallet_rounded,
+                      color: Color(0xFF828282)),
+                  label: 'Баланс'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person, color: Color(0xFF828282)),
                   label: 'Профиль'),

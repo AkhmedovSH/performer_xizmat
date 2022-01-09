@@ -11,3 +11,4 @@ Color orange = Color(0xFFFD6F4E);
 Color white = Color(0xFFFFFFFF);
 Color inputColor = Color(0xFFF3F7FA);
 Color yellow = Color(0xFFF3A919);
+Color borderColor = Color(0xFFF8F8F8);

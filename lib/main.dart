@@ -4,13 +4,17 @@ import 'package:get/get.dart';
 import './globals.dart' as globals;
 
 import 'pages/index.dart';
-import 'pages/categories.dart';
-import 'pages/fast_search.dart';
-import 'pages/tutor.dart';
+import 'pages/chat.dart';
+import 'pages/balance.dart';
+import 'pages/payment.dart';
 import 'pages/support.dart';
-import 'pages/Steps/success.dart';
-import 'pages/specialist_inside.dart';
-import 'pages/profile.dart';
+
+import 'pages/Profile/profile.dart';
+import 'pages/Profile/speciality.dart';
+import 'pages/Profile/add_category.dart';
+import 'pages/Profile/category_inside.dart';
+import 'pages/Profile/verification.dart';
+import 'pages/Profile/why_need_verification.dart';
 
 import 'pages/Register/register.dart';
 import 'pages/Register/confirmation.dart';
@@ -19,18 +23,12 @@ import 'pages/Register/choose_specialization.dart';
 import 'pages/Register/service_area.dart';
 import 'pages/Register/upload_photo.dart';
 
-import 'pages/Order/orders.dart';
-import 'pages/Order/order_inside.dart';
-import 'pages/Order/order_by_manager.dart';
-import 'pages/Order/order_by_manager_success.dart';
-
-import 'pages/Steps/step_1.dart';
-import 'pages/Steps/step_2.dart';
-import 'pages/Steps/step_3.dart';
-import 'pages/Steps/step_4.dart';
-import 'pages/Steps/step_5.dart';
-import 'pages/Steps/google_map.dart';
-import 'pages/Steps/search_result.dart';
+import 'pages/Order/proposed_orders.dart';
+import 'pages/Order/current_orders.dart';
+import 'pages/Order/completed_orders.dart';
+import 'pages/Order/about_new_order.dart';
+import 'pages/Order/about_offered_order.dart';
+import 'pages/Order/about_completed_order.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,13 +59,35 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/register',
+      initialRoute: '/',
       getPages: [
+        GetPage(name: '/chat', page: () => Chat()),
+        GetPage(name: '/balance', page: () => Balance()),
+        GetPage(name: '/payment', page: () => Payment()),
+        GetPage(name: '/support', page: () => Support()),
+
+        // Profile
+
+        GetPage(name: '/profile', page: () => Profile()),
+        GetPage(name: '/speciality', page: () => Speciality()),
+        GetPage(name: '/add-category', page: () => AddCategory()),
+        GetPage(name: '/category-inside', page: () => CategoryInside()),
+        GetPage(name: '/verification', page: () => Verification()),
+        GetPage(name: '/why-need-verification', page: () => WhyNeedVerification()),
+
+        // Order
+
         GetPage(name: '/', page: () => Index()),
-        GetPage(name: '/categories', page: () => Categories()),
-        GetPage(name: '/fast-search', page: () => FastSearch()),
+        GetPage(name: '/order-inside', page: () => AboutNewOrder()),
+        GetPage(name: '/about-offered-order', page: () => AboutOfferedOrder()),
+        GetPage(name: '/proposed-orders', page: () => ProposedOrders()),
+        GetPage(name: '/current-orders', page: () => CurrentOrders()),
+        GetPage(name: '/completed-orders', page: () => CompletedOrders()),
+        GetPage(
+            name: '/about-completed-order', page: () => AboutCompletedOrder()),
+
         // Register
-        GetPage(name: '/tutor', page: () => Tutor()),
+
         GetPage(name: '/register', page: () => Register()),
         GetPage(name: '/confirmation', page: () => Confirmation()),
         GetPage(name: '/select-category', page: () => SelectCategory()),
@@ -75,29 +95,7 @@ class MyApp extends StatelessWidget {
             name: '/choose_specialization', page: () => ChooseSpecialization()),
         GetPage(name: '/service-area', page: () => ServiceArea()),
         GetPage(name: '/upload-photo', page: () => UploadPhoto()),
-        //
-        GetPage(name: '/support', page: () => Support()),
-        GetPage(name: '/success', page: () => Success()),
-        GetPage(name: '/profile', page: () => Profile()),
-        GetPage(name: '/specialist-inside', page: () => SpecialistInside()),
-        GetPage(name: '/orders', page: () => Orders()),
-        GetPage(name: '/order-inside', page: () => OrderInside()),
-        GetPage(name: '/order-by-manager', page: () => OrderByManager()),
-        GetPage(
-            name: '/order-by-manager-success',
-            page: () => OrderByManagerSuccess()),
-        GetPage(name: '/step-1', page: () => Step1()),
-        GetPage(name: '/step-2', page: () => Step2()),
-        GetPage(name: '/step-3', page: () => Step3()),
-        GetPage(name: '/step-4', page: () => Step4()),
-        GetPage(name: '/step-5', page: () => Step5()),
-        GetPage(name: '/google-map', page: () => Map()),
-        GetPage(
-            name: '/search-result',
-            page: () => SearchResult(),
-            transition: Transition.downToUp),
       ],
-      // home: Index(),
     );
   }
 }

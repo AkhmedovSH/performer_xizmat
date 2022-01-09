@@ -45,7 +45,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                 height: 100,
                 padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
                 decoration: BoxDecoration(
-                    color: Color(0xFFF8F8F8),
+                    color: globals.borderColor,
                     borderRadius: BorderRadius.all(Radius.circular(50))),
                 child: Icon(
                   Icons.person,
