@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart' as globals;
 
 import '../../components/bottom_bar.dart';
 import '../../components/drawer_app_bar.dart';

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart' as globals;
 import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';

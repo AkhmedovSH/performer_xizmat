@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart' as globals;
 import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
       appBar: SimpleAppBar(
         title: 'Регистрация',
         appBar: AppBar(),
-        leading: false,
+        leading: true,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -36,10 +36,7 @@ class _RegisterState extends State<Register> {
                 margin: EdgeInsets.only(bottom: 10),
                 child: Text(
                   'Номер телефона',
-                  style: TextStyle(
-                      color: globals.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                  style: TextStyle(color: globals.black, fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
               Container(
@@ -49,8 +46,7 @@ class _RegisterState extends State<Register> {
                     contentPadding: EdgeInsets.all(18.0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          BorderSide(color: Color(0xFFECECEC), width: 0.0),
+                      borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
                     ),
                     filled: true,
                     fillColor: globals.inputColor,

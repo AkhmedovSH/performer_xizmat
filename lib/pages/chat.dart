@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math';
 
-import '../globals.dart' as globals;
+import '../helpers/globals.dart' as globals;
 
 class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);

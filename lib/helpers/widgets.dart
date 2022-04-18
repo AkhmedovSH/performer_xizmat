@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'helpers/globals.dart' as globals;
-//ignore: must_be_immutable
+import 'globals.dart' as globals;
+
 class Button extends StatefulWidget {
-  String? text;
-  Function? onClick;
-  Button({Key? key, this.text, this.onClick}) : super(key: key);
+  final String? text;
+  final Function? onClick;
+  const Button({Key? key, this.text, this.onClick}) : super(key: key);
 
   @override
   _ButtonState createState() => _ButtonState();
@@ -37,11 +37,10 @@ class _ButtonState extends State<Button> {
   }
 }
 
-//ignore: must_be_immutable
 class OutlinedButton extends StatefulWidget {
-  String? text;
-  Function? onClick;
-  OutlinedButton({Key? key, this.text, this.onClick}) : super(key: key);
+  final String? text;
+  final Function? onClick;
+  const OutlinedButton({Key? key, this.text, this.onClick}) : super(key: key);
 
   @override
   _OutlinedButtonState createState() => _OutlinedButtonState();
@@ -75,11 +74,33 @@ class _OutlinedButtonState extends State<OutlinedButton> {
         // ),
         child: Text(
           '${widget.text}',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 17, color: globals.red),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: globals.red),
         ),
       ),
     );
   }
 }
 
+class Input extends StatefulWidget {
+  final String? hintText;
+  final Function? onChanged;
+  final border;
+  const Input({Key? key, this.hintText, this.onChanged, this.border}) : super(key: key);
+
+  @override
+  State<Input> createState() => InputState();
+}
+
+class InputState extends State<Input> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        border: widget.border,
+        focusedBorder: widget.border,
+        enabledBorder: widget.border,
+        hintText: widget.hintText,
+      ),
+    );
+  }
+}

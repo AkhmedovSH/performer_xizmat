@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../globals.dart' as globals;
+import '../../helpers/globals.dart' as globals;
 import '../../../widgets.dart' as widgets;
 
 import '../../components/bottom_bar.dart';
@@ -231,9 +231,6 @@ class _ProfileState extends State<Profile> {
             )
           ],
         ),
-      ),
-      bottomNavigationBar: BottomBar(
-        active: 2,
       ),
     );
   }

@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.xizmat24_executor">
-    
+    package="uz.xizmat24.client">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
         android:label="Xizmat24 Executor"
         android:icon="@mipmap/launcher_icon">
@@ -41,5 +43,4 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBYv4pwyrVpmopgOWIxur7BmaF3pd0ZXfE"/>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

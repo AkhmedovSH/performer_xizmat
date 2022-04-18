@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../../helpers/globals.dart' as globals;
+import '../../../widgets.dart' as widgets;
 
-import '../components/bottom_bar.dart';
-import '../../components/simple_app_bar.dart';
+import '../../components/bottom_bar.dart';
+import '../../../components/simple_app_bar.dart';
 
 class Support extends StatefulWidget {
   const Support({Key? key}) : super(key: key);
@@ -102,9 +101,6 @@ class _SupportState extends State<Support> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomBar(
-        active: 3,
       ),
     );
   }

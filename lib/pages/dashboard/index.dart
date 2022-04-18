@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../globals.dart' as globals;
+import '../../helpers/globals.dart' as globals;
 
-import '../components/bottom_bar.dart';
-import '../components/drawer_app_bar.dart';
+import '../../components/bottom_bar.dart';
 
 class Index extends StatefulWidget {
-  const Index({Key? key}) : super(key: key);
+  final Function? openDrawerBar;
+  const Index({Key? key, this.openDrawerBar}) : super(key: key);
 
   @override
   _IndexState createState() => _IndexState();
@@ -29,7 +29,7 @@ class _IndexState extends State<Index> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
+            widget.openDrawerBar!();
           },
           icon: Icon(
             Icons.menu,
@@ -39,11 +39,6 @@ class _IndexState extends State<Index> {
         actions: [
           Container(),
         ],
-      ),
-      drawer: Container(
-        padding: EdgeInsets.all(0),
-        width: MediaQuery.of(context).size.width * 0.95,
-        child: DrawerAppBar(),
       ),
       endDrawer: Container(
         padding: EdgeInsets.all(0),
@@ -66,17 +61,11 @@ class _IndexState extends State<Index> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('Фильтр',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
+                              Text('Фильтр', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                               SizedBox(
                                 height: 5,
                               ),
-                              Text('Подбор заказов по параметрам',
-                                  style: TextStyle(
-                                      color: globals.lightGrey,
-                                      fontWeight: FontWeight.w500))
+                              Text('Подбор заказов по параметрам', style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500))
                             ],
                           ),
                           IconButton(
@@ -93,9 +82,7 @@ class _IndexState extends State<Index> {
                       SizedBox(
                         height: 15,
                       ),
-                      Text('Бюджет (сум)',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600)),
+                      Text('Бюджет (сум)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                       SizedBox(
                         height: 10,
                       ),
@@ -116,15 +103,13 @@ class _IndexState extends State<Index> {
                                     decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.all(5.0),
                                   enabledBorder: const UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFF9C9C9C)),
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: globals.red),
                                   ),
                                   hintText: '0',
-                                  hintStyle:
-                                      const TextStyle(color: Color(0xFF9C9C9C)),
+                                  hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                                 )),
                               )
                             ],
@@ -137,23 +122,19 @@ class _IndexState extends State<Index> {
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                               SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.38,
+                                  width: MediaQuery.of(context).size.width * 0.38,
                                   // height: 30,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       contentPadding: const EdgeInsets.all(5.0),
                                       enabledBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xFF9C9C9C)),
+                                        borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: globals.red),
+                                        borderSide: BorderSide(color: globals.red),
                                       ),
                                       hintText: '123 000 000',
-                                      hintStyle: const TextStyle(
-                                          color: Color(0xFF9C9C9C)),
+                                      hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                                     ),
                                   ))
                             ],
@@ -163,9 +144,7 @@ class _IndexState extends State<Index> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text('Дата исполнения',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600)),
+                      Text('Дата исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                       SizedBox(
                         height: 10,
                       ),
@@ -183,33 +162,24 @@ class _IndexState extends State<Index> {
                                 ),
                               ),
                               SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.38,
+                                  width: MediaQuery.of(context).size.width * 0.38,
                                   // height: 30,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       suffixIcon: Icon(Icons.calendar_today),
                                       contentPadding: EdgeInsets.all(18.0),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       filled: true,
                                       fillColor: globals.borderColor,
                                       hintText: 'дд/мм/гг',
-                                      hintStyle: TextStyle(
-                                          color: Color(0xFF9C9C9C),
-                                          fontSize: 14),
+                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
                                     ),
                                   ))
                             ],
@@ -225,33 +195,24 @@ class _IndexState extends State<Index> {
                                 ),
                               ),
                               SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.38,
+                                  width: MediaQuery.of(context).size.width * 0.38,
                                   // height: 30,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       suffixIcon: Icon(Icons.calendar_today),
                                       contentPadding: EdgeInsets.all(18.0),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       filled: true,
                                       fillColor: globals.borderColor,
                                       hintText: 'дд/мм/гг',
-                                      hintStyle: TextStyle(
-                                          color: Color(0xFF9C9C9C),
-                                          fontSize: 14),
+                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
                                     ),
                                   ))
                             ],
@@ -261,9 +222,7 @@ class _IndexState extends State<Index> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text('Время исполнения',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600)),
+                      Text('Время исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                       SizedBox(
                         height: 10,
                       ),
@@ -281,33 +240,24 @@ class _IndexState extends State<Index> {
                                 ),
                               ),
                               SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.38,
+                                  width: MediaQuery.of(context).size.width * 0.38,
                                   // height: 30,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       suffixIcon: Icon(Icons.schedule),
                                       contentPadding: EdgeInsets.all(18.0),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       filled: true,
                                       fillColor: globals.borderColor,
                                       hintText: '00:00',
-                                      hintStyle: TextStyle(
-                                          color: Color(0xFF9C9C9C),
-                                          fontSize: 14),
+                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
                                     ),
                                   ))
                             ],
@@ -323,33 +273,24 @@ class _IndexState extends State<Index> {
                                 ),
                               ),
                               SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.38,
+                                  width: MediaQuery.of(context).size.width * 0.38,
                                   // height: 30,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       suffixIcon: Icon(Icons.schedule),
                                       contentPadding: EdgeInsets.all(18.0),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFFDADADA),
-                                            width: 1.0),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                                       ),
                                       filled: true,
                                       fillColor: globals.borderColor,
                                       hintText: '00:00',
-                                      hintStyle: TextStyle(
-                                          color: Color(0xFF9C9C9C),
-                                          fontSize: 14),
+                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
                                     ),
                                   ))
                             ],
@@ -360,20 +301,14 @@ class _IndexState extends State<Index> {
                   ),
                   Container(
                       padding: EdgeInsets.symmetric(vertical: 20),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              top: BorderSide(
-                                  color: globals.borderColor, width: 1))),
+                      decoration: BoxDecoration(border: Border(top: BorderSide(color: globals.borderColor, width: 1))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.close, color: globals.darkRed),
                           Text(
                             'ЗАКРЫТЬ',
-                            style: TextStyle(
-                                color: globals.darkRed,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: globals.darkRed, fontSize: 16, fontWeight: FontWeight.bold),
                           )
                         ],
                       ))
@@ -409,14 +344,11 @@ class _IndexState extends State<Index> {
                         children: [
                           Text(
                             'Сортировка',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 15),
+                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
                           ),
                           Text(
                             'по бюджету',
-                            style: TextStyle(
-                                color: globals.lightGrey,
-                                fontWeight: FontWeight.w500),
+                            style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500),
                           )
                         ],
                       )
@@ -442,14 +374,11 @@ class _IndexState extends State<Index> {
                         children: [
                           Text(
                             'Фильтры',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 15),
+                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
                           ),
                           Text(
                             'Не выбраны',
-                            style: TextStyle(
-                                color: globals.lightGrey,
-                                fontWeight: FontWeight.w500),
+                            style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500),
                           )
                         ],
                       )
@@ -466,43 +395,28 @@ class _IndexState extends State<Index> {
                 child: Container(
                   padding: EdgeInsets.all(16),
                   margin: EdgeInsets.only(bottom: 10, top: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: globals.inputColor),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: globals.inputColor),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('№ 345 666',
-                              style: TextStyle(fontWeight: FontWeight.w500)),
-                          Icon(Icons.arrow_forward)
-                        ],
+                        children: const [Text('№ 345 666', style: TextStyle(fontWeight: FontWeight.w500)), Icon(Icons.arrow_forward)],
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 15, bottom: 5),
-                        child: Text('Занятия по высшей математике',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16)),
+                        child: Text('Занятия по высшей математике', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                       ),
                       Container(
                         margin: EdgeInsets.only(bottom: 5),
-                        child: Text('бюджет:400 000 сум',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: globals.lightGrey,
-                                fontWeight: FontWeight.bold)),
+                        child: Text('бюджет:400 000 сум', style: TextStyle(fontSize: 16, color: globals.lightGrey, fontWeight: FontWeight.bold)),
                       ),
                       Container(
                         margin: EdgeInsets.only(bottom: 20),
                         child: Text('Дата исполнения: 09.20.2021, 13:00',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: globals.lightGrey,
-                                fontWeight: FontWeight.w500)),
+                            style: TextStyle(fontSize: 14, color: globals.lightGrey, fontWeight: FontWeight.w500)),
                       ),
-                      Container(
+                      SizedBox(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,9 +435,7 @@ class _IndexState extends State<Index> {
                                 ),
                                 child: Text(
                                   'Откликнуться',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                                 ),
                               ),
                             ),
@@ -534,8 +446,7 @@ class _IndexState extends State<Index> {
                                   Get.toNamed('/chat');
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 10),
+                                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                                   elevation: 0,
                                   primary: Colors.transparent,
                                   shape: RoundedRectangleBorder(
@@ -545,10 +456,7 @@ class _IndexState extends State<Index> {
                                 ),
                                 child: Text(
                                   'Написать',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15,
-                                      color: globals.black),
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
                                 ),
                               ),
                             ),
@@ -562,9 +470,6 @@ class _IndexState extends State<Index> {
           ],
         ),
       )),
-      bottomNavigationBar: BottomBar(
-        active: 0,
-      ),
     );
   }
 }
