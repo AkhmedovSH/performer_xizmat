@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../helpers/globals.dart' as globals;
 
-import '../../components/bottom_bar.dart';
-
 class Index extends StatefulWidget {
   final Function? openDrawerBar;
   const Index({Key? key, this.openDrawerBar}) : super(key: key);

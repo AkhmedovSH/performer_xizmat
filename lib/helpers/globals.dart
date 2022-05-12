@@ -3,6 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:intl/intl.dart';
 
+dynamic mainUrl = 'https://admin.xizmat24.uz';
+
 Color black = Color(0xFF40484E);
 Color darkGrey = Color(0xFF727272);
 Color grey = Color(0xFFF1F1F1);
@@ -28,6 +30,15 @@ formatMoney(amount) {
   } else {
     return NumberFormat.currency(symbol: '', decimalDigits: 2, locale: 'UZ').format(0);
   }
+}
+
+formatPhone(phone) {
+  var x = phone.substring(0, 3);
+  var y = phone.substring(3, 5);
+  var z = phone.substring(5, 8);
+  var d = phone.substring(8, 10);
+  var q = phone.substring(10, 12);
+  return '+' + x + ' ' + '($y)' + ' ' + z + ' ' + d + ' ' + q;
 }
 
 showSuccessToast(message) {

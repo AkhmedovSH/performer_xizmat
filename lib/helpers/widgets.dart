@@ -84,7 +84,7 @@ class _OutlinedButtonState extends State<OutlinedButton> {
 class Input extends StatefulWidget {
   final String? hintText;
   final Function? onChanged;
-  final border;
+  final InputBorder? border;
   const Input({Key? key, this.hintText, this.onChanged, this.border}) : super(key: key);
 
   @override

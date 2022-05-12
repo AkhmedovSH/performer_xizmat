@@ -148,7 +148,7 @@ class _ProposedOrdersState extends State<ProposedOrders> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

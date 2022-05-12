@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../helpers/globals.dart' as globals;
 
@@ -30,8 +29,7 @@ class _BottomBarState extends State<BottomBar> {
               BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
             ],
           ),
-          child: Container(
-            
+          child: SizedBox(
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(

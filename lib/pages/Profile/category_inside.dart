@@ -43,7 +43,7 @@ class _CategoryInsideState extends State<CategoryInside> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       child: Text('Клининговые услуги',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),

@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../helpers/globals.dart' as globals;
+import '../helpers/globals.dart' ;
 import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
@@ -27,14 +24,14 @@ class _PaymentState extends State<Payment> {
           borderSide: BorderSide(color: Color(0xFFECECEC), width: 1.0),
         ),
         filled: true,
-        fillColor: globals.inputColor,
+        fillColor: inputColor,
         hintText: text,
         hintStyle: TextStyle(
             color: Color(0xFF7A7A7A),
             fontSize: 16,
             fontWeight: FontWeight.w500),
       ),
-      style: TextStyle(color: globals.inputColor),
+      style: TextStyle(color: inputColor),
     );
   }
 

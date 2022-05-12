@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../helpers/globals.dart' as globals;
 
 import '../../components/bottom_bar.dart';
@@ -143,7 +142,7 @@ class _CurrentOrdersState extends State<CurrentOrders> {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

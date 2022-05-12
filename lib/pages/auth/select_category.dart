@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../helpers/globals.dart' as globals;
+import '../../helpers/globals.dart';
 import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
@@ -45,7 +45,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search,
-                      color: globals.darkRed,
+                      color: darkRed,
                     ),
                     contentPadding: EdgeInsets.all(18.0),
                     enabledBorder: OutlineInputBorder(
@@ -54,11 +54,11 @@ class _SelectCategoryState extends State<SelectCategory> {
                           BorderSide(color: Color(0xFFECECEC), width: 0.0),
                     ),
                     filled: true,
-                    fillColor: globals.inputColor,
+                    fillColor: inputColor,
                     hintText: 'Поиск',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.inputColor),
+                  style: TextStyle(color: inputColor),
                 ),
               ),
               Container(
@@ -72,17 +72,17 @@ class _SelectCategoryState extends State<SelectCategory> {
                   children: [
                     Text(
                       'Сантехника',
-                      style: TextStyle(color: globals.black, fontSize: 18),
+                      style: TextStyle(color: black, fontSize: 18),
                     ),
                     Container(
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                          color: globals.orange,
+                          color: orange,
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       child: Icon(
                         Icons.check,
-                        color: globals.white,
+                        color: white,
                       ),
                     )
                   ],
@@ -99,17 +99,17 @@ class _SelectCategoryState extends State<SelectCategory> {
                   children: [
                     Text(
                       'Малярные работы',
-                      style: TextStyle(color: globals.black, fontSize: 18),
+                      style: TextStyle(color: black, fontSize: 18),
                     ),
                     Container(
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                          border: Border.all(width: 1, color: globals.darkGrey),
+                          border: Border.all(width: 1, color: darkGrey),
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       child: Icon(
                         Icons.check,
-                        color: globals.white,
+                        color: white,
                       ),
                     )
                   ],
@@ -124,7 +124,7 @@ class _SelectCategoryState extends State<SelectCategory> {
         child: widgets.Button(
           text: 'Продолжить',
           onClick: () {
-            Get.toNamed('/choose_specialization');
+            Get.toNamed('/choose-specialization');
           },
         ),
       ),

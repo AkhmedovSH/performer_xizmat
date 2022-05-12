@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
 import '../../helpers/globals.dart' as globals;
-import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
@@ -17,7 +16,7 @@ class AboutOfferedOrder extends StatefulWidget {
 
 class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
   int currentIndex = 0;
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
   dynamic character = 1;
 
   static final CameraPosition _kGooglePlex =

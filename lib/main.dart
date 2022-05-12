@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'helpers/globals.dart';
 
 // Main
+
 import 'pages/dashboard/dashboard.dart';
 import 'pages/chat.dart';
 import 'pages/dashboard/balance.dart';
@@ -14,21 +15,29 @@ import 'pages/payment.dart';
 import 'pages/dashboard/support.dart';
 
 // Profile
+
 import 'pages/dashboard/profile.dart';
 import 'pages/Profile/speciality.dart';
 import 'pages/Profile/add_category.dart';
 import 'pages/Profile/category_inside.dart';
-import 'pages/Profile/verification.dart';
 import 'pages/Profile/why_need_verification.dart';
+import 'pages/Profile/about_me.dart';
+import 'pages/Profile/profile_upload_photo.dart';
+
 // Auth
+
 import 'pages/auth/login.dart';
 import 'pages/auth/register.dart';
 import 'pages/auth/confirmation.dart';
 import 'pages/auth/select_category.dart';
 import 'pages/auth/choose_specialization.dart';
 import 'pages/auth/service_area.dart';
+import 'pages/auth/choose_regions.dart';
 import 'pages/auth/upload_photo.dart';
+import 'pages/auth/verification.dart';
+
 // Orders
+
 import 'pages/Order/proposed_orders.dart';
 import 'pages/Order/current_orders.dart';
 import 'pages/Order/completed_orders.dart';
@@ -43,11 +52,14 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    // systemNavigationBarColor: Colors.black,
-    statusBarColor: Colors.transparent,
-    statusBarBrightness: Brightness.dark,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      // systemNavigationBarColor: Colors.black,
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -56,15 +68,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      // translations: Messages(),
+      locale: const Locale('ru', 'RU'),
+      fallbackLocale: const Locale('uz', 'UZ'),
       debugShowCheckedModeBanner: false,
       popGesture: true,
-      defaultTransition: Transition.leftToRight,
+      defaultTransition: Transition.fade,
       transitionDuration: Duration(milliseconds: 250),
       theme: ThemeData(
         backgroundColor: Color(0xFFFFFFFF),
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         brightness: Brightness.light,
-        primaryColor: Color(0xFFFF5453),
+        primaryColor: red,
         platform: TargetPlatform.android,
         textTheme: Theme.of(context).textTheme.apply(
               bodyColor: black,
@@ -89,8 +104,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/speciality', page: () => Speciality()),
         GetPage(name: '/add-category', page: () => AddCategory()),
         GetPage(name: '/category-inside', page: () => CategoryInside()),
-        GetPage(name: '/verification', page: () => Verification()),
         GetPage(name: '/why-need-verification', page: () => WhyNeedVerification()),
+        GetPage(name: '/about-me', page: () => AboutMe()),
+        GetPage(name: '/profile-upload-photo', page: () => ProfileUploadPhoto()),
 
         // Order
 
@@ -102,14 +118,16 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/completed-orders', page: () => CompletedOrders()),
         GetPage(name: '/about-completed-order', page: () => AboutCompletedOrder()),
 
-        // Register
+        // Auth
         GetPage(name: '/login', page: () => Login()),
         GetPage(name: '/register', page: () => Register()),
         GetPage(name: '/confirmation', page: () => Confirmation()),
         GetPage(name: '/select-category', page: () => SelectCategory()),
-        GetPage(name: '/choose_specialization', page: () => ChooseSpecialization()),
-        GetPage(name: '/service-area', page: () => ServiceArea()),
+        GetPage(name: '/verification', page: () => Verification()),
+        GetPage(name: '/choose-specialization', page: () => ChooseSpecialization()),
         GetPage(name: '/upload-photo', page: () => UploadPhoto()),
+        GetPage(name: '/service-area', page: () => ServiceArea()),
+        GetPage(name: '/choose-regions', page: () => ChooseRegions()),
       ],
     );
   }

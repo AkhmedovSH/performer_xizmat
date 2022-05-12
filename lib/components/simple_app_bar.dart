@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../helpers/globals.dart' as globals;
-
-import 'package:flutter/material.dart';
 
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final AppBar? appBar;
   final bool? leading;
-  const SimpleAppBar(
-      {Key? key, this.title, @required this.appBar, this.leading = true})
-      : super(key: key);
+  const SimpleAppBar({Key? key, this.title, @required this.appBar, this.leading = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +20,11 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: globals.black,
         ),
       ),
+      // systemOverlayStyle: SystemUiOverlayStyle(
+      //   statusBarColor: Colors.white,
+      //   statusBarBrightness: Brightness.dark,
+      //   statusBarIconBrightness: Brightness.dark,
+      // ),
       centerTitle: true,
       leading: leading!
           ? IconButton(

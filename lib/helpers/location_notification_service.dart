@@ -6,7 +6,7 @@ class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static void initialize(BuildContext context) {
-    InitializationSettings initializationSettings = const InitializationSettings(android: AndroidInitializationSettings("@mipmap/launcher_icon"));
+    InitializationSettings initializationSettings = const InitializationSettings(android: AndroidInitializationSettings('@mipmap/launcher_icon'));
 
     _notificationsPlugin.initialize(initializationSettings, onSelectNotification: (String? route) async {
       if (route != null) {
@@ -21,8 +21,8 @@ class LocalNotificationService {
 
       NotificationDetails notificationDetails = const NotificationDetails(
           android: AndroidNotificationDetails(
-        "moneyBekproject",
-        "easyapproach channel",
+        'moneyBekproject',
+        'easyapproach channel',
         importance: Importance.max,
         priority: Priority.high,
       ));
@@ -32,7 +32,7 @@ class LocalNotificationService {
         message.notification!.title,
         message.notification!.body,
         notificationDetails,
-        payload: message.data["route"],
+        payload: message.data['route'],
       );
     } on Exception catch (e) {
       print(e);

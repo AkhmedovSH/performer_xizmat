@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,34 +24,37 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
-    'username': '', // 998 998325455
-    'password': '', // 112233
+    'username': '998998325455', // 998 998325455
+    'password': '112233', // 112233
   };
   bool showPassword = true;
 
   login() async {
-    setState(() {
-      sendData['username'] = '998' + maskFormatter.getUnmaskedText();
-    });
+    // setState(() {
+    //   sendData['username'] = '998' + maskFormatter.getUnmaskedText();
+    // });
     final prefs = await SharedPreferences.getInstance();
-    final response = await guestPost('/auth/login', sendData);
+    dynamic response = {};
+    try {
+      final login = await dio.post('https://admin.xizmat24.uz/auth/login', data: sendData);
+      response = login.data;
+    } on DioError catch (e) {
+      statuscheker(e);
+    }
     if (response != null) {
       prefs.setString('access_token', response['access_token'].toString());
       prefs.setString('user', jsonEncode(sendData));
       var account = await get('/services/uaa/api/account');
-      var checkAccess = true;
-      // for (var i = 0; i < account['authorities'].length; i++) {
-      //   if (account['authorities'][i] == 'ROLE_CLIENT') {
-      //     checkAccess = true;
-      //   }
-      // }
+      var checkAccess = false;
+      for (var i = 0; i < account['authorities'].length; i++) {
+        if (account['authorities'][i] == 'ROLE_CLIENT') {
+          checkAccess = true;
+        }
+      }
       if (checkAccess) {
         LocalNotificationService.initialize(context);
-
-        ///gives you the message on which user taps
-        ///and it opened the app from terminated state
         FirebaseMessaging.instance.getInitialMessage().then((message) {
           if (message != null) {
             Get.offAllNamed('/notifications');
@@ -59,24 +63,15 @@ class _LoginState extends State<Login> {
 
         ///forground work
         FirebaseMessaging.onMessage.listen((message) {
-          if (message.notification != null) {
-            //print(message.notification!.body);
-            //print(message.notification!.title);
-            //print("THIS IS MY ROTE 2 :${message.data['route']}");
-            //Get.toNamed('/dashboard');
-          }
+          if (message.notification != null) {}
           LocalNotificationService.display(message);
         });
 
-        ///When the app is in background but opened and user taps on the notification
         FirebaseMessaging.onMessageOpenedApp.listen((message) {
           Get.offAllNamed('/notifications');
         });
 
-        // var firebaseToken = await FirebaseMessaging.instance.getToken();
-        // await put('/services/gocashmobile/api/firebase-token', {'token': firebaseToken});
-
-        Get.offAllNamed('/dashboard');
+        Get.toNamed('/service-area');
       }
     }
   }

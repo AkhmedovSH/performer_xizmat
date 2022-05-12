@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../helpers/globals.dart' as globals;
+import '../../helpers/globals.dart';
 import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
@@ -43,7 +43,7 @@ class _ChooseSpecializationState extends State<ChooseSpecialization> {
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search,
-                      color: globals.darkRed,
+                      color: darkRed,
                     ),
                     contentPadding: EdgeInsets.all(18.0),
                     enabledBorder: OutlineInputBorder(
@@ -52,11 +52,11 @@ class _ChooseSpecializationState extends State<ChooseSpecialization> {
                           BorderSide(color: Color(0xFFECECEC), width: 0.0),
                     ),
                     filled: true,
-                    fillColor: globals.inputColor,
+                    fillColor: inputColor,
                     hintText: 'Поиск',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.inputColor),
+                  style: TextStyle(color: inputColor),
                 ),
               ),
               Container(
@@ -70,17 +70,17 @@ class _ChooseSpecializationState extends State<ChooseSpecialization> {
                   children: [
                     Text(
                       'Установка разеток',
-                      style: TextStyle(color: globals.black, fontSize: 18),
+                      style: TextStyle(color: black, fontSize: 18),
                     ),
                     Container(
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                          color: globals.darkRed,
+                          color: darkRed,
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       child: Icon(
                         Icons.check,
-                        color: globals.white,
+                        color: white,
                       ),
                     )
                   ],
@@ -97,17 +97,17 @@ class _ChooseSpecializationState extends State<ChooseSpecialization> {
                   children: [
                     Text(
                       'Замена проводки',
-                      style: TextStyle(color: globals.black, fontSize: 18),
+                      style: TextStyle(color: black, fontSize: 18),
                     ),
                     Container(
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                          border: Border.all(width: 1, color: globals.darkGrey),
+                          border: Border.all(width: 1, color: darkGrey),
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       child: Icon(
                         Icons.check,
-                        color: globals.white,
+                        color: white,
                       ),
                     )
                   ],

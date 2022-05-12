@@ -8,7 +8,7 @@ import 'loading_controller.dart';
 
 import './globals.dart';
 
-const hostUrl = 'https://xizmat24.uz';
+const hostUrl = 'https://admin.xizmat24.uz';
 
 BaseOptions options = BaseOptions(
   baseUrl: hostUrl,
@@ -26,9 +26,9 @@ Future get(String url, {payload}) async {
     final response = await dio.get(hostUrl + url,
         queryParameters: payload,
         options: Options(headers: {
-          "authorization": "Bearer ${prefs.getString('access_token')}",
-          "Language": getx.Get.locale.toString().substring(0, 2),
-          "Accept-Language": getx.Get.locale.toString().substring(0, 2)
+          'authorization': "Bearer ${prefs.getString('access_token')}",
+          'Language': getx.Get.locale.toString().substring(0, 2),
+          'Accept-Language': getx.Get.locale.toString().substring(0, 2)
         }));
     return response.data;
   } on DioError catch (e) {
@@ -42,7 +42,7 @@ Future post(String url, dynamic payload) async {
     final response = await dio.post(hostUrl + url,
         data: payload,
         options: Options(headers: {
-          "authorization": "Bearer ${prefs.getString('access_token')}",
+          'authorization': "Bearer ${prefs.getString('access_token')}",
         }));
     return response.data;
   } on DioError catch (e) {
@@ -65,7 +65,7 @@ Future put(String url, dynamic payload) async {
     final response = await dio.put(hostUrl + url,
         data: payload,
         options: Options(headers: {
-          "authorization": "Bearer ${prefs.getString('access_token')}",
+          'authorization': "Bearer ${prefs.getString('access_token')}",
         }));
     return response.data;
   } on DioError catch (e) {
@@ -79,7 +79,7 @@ Future delete(String url) async {
   try {
     final response = await dio.delete(hostUrl + url,
         options: Options(headers: {
-          "authorization": "Bearer ${prefs.getString('access_token')}",
+          'authorization': "Bearer ${prefs.getString('access_token')}",
         }));
     print(response.statusCode);
     print(response.data);
@@ -95,7 +95,7 @@ uploadImage(url, File file) async {
   try {
     String fileName = file.path.split('/').last;
     FormData data = FormData.fromMap({
-      "image": await MultipartFile.fromFile(
+      'image': await MultipartFile.fromFile(
         file.path,
         filename: fileName,
       ),
@@ -104,7 +104,7 @@ uploadImage(url, File file) async {
       hostUrl + url,
       data: data,
       options: Options(headers: {
-        "authorization": "Bearer ${prefs.getString('access_token')}",
+        'authorization': "Bearer ${prefs.getString('access_token')}",
       }),
     );
     return response.data;
@@ -113,7 +113,6 @@ uploadImage(url, File file) async {
     statuscheker(e);
   }
 }
-
 
 statuscheker(e) async {
   print(e.response?.statusCode);

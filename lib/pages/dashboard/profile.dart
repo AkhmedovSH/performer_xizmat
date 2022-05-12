@@ -1,10 +1,16 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../helpers/globals.dart' as globals;
-import '../../../widgets.dart' as widgets;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
 
-import '../../components/bottom_bar.dart';
+import '../../helpers/api.dart';
+import '../../helpers/globals.dart';
+
 import '../../../components/simple_app_bar.dart';
 
 class Profile extends StatefulWidget {
@@ -15,6 +21,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  dynamic user = {};
   dynamic profile = [
     {
       'name': 'Специальности',
@@ -25,14 +32,62 @@ class _ProfileState extends State<Profile> {
     },
     {
       'name': 'Районы и адреса',
-      'description': 'Где вам удобно работать, принимаете ли вы клиентов у себя'
+      'description': 'Где вам удобно работать, принимаете ли вы клиентов у себя',
+      'onClick': () {
+        Get.toNamed('/service-area');
+      }
     },
-    {'name': 'Фото ваших работ', 'description': 'Их видят клиенты'},
+    {
+      'name': 'Фото паспорта',
+      'description': 'Для верификации в приложении',
+      'onClick': () {
+        Get.toNamed('/verification');
+      }
+    },
+    {
+      'name': 'Фото ваших работ',
+      'description': 'Их видят клиенты',
+      'onClick': () {
+        Get.toNamed('/profile-upload-photo', arguments: 1);
+      }
+    },
+    {
+      'name': 'Фото сертификатов',
+      'description': 'Сертификаты которые могут привлечь клиентов',
+      'onClick': () {
+        Get.toNamed('/profile-upload-photo', arguments: 2);
+      }
+    },
     {
       'name': 'О себе',
-      'description': 'Образование, опыт работы и кратко о себе'
+      'description': 'Образование, опыт работы и кратко о себе',
+      'onClick': () {
+        Get.toNamed('/about-me');
+      }
     },
   ];
+
+  logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('access_token');
+    prefs.remove('user');
+    Get.offAllNamed('/login');
+  }
+
+  getUser() async {
+    final response = await get('/services/executor/api/get-info');
+    if (response != null) {
+      setState(() {
+        user = response;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,31 +103,41 @@ class _ProfileState extends State<Profile> {
             Stack(
               children: [
                 Center(
-                  child: Container(
-                      width: 86,
-                      height: 86,
-                      child: CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: Colors.transparent,
-                          child: Image.asset(
-                            'images/circle_avatar.png',
-                            height: 86,
-                            width: 86,
-                          ))),
+                  child: SizedBox(
+                    width: 86,
+                    height: 86,
+                    child: CircleAvatar(
+                      radius: 30.0,
+                      backgroundColor: Colors.transparent,
+                      child: Image.asset(
+                        'images/circle_avatar.png',
+                        height: 86,
+                        width: 86,
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
-                    top: 20,
-                    right: 20,
-                    child: Icon(
+                  top: 20,
+                  right: 20,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                    onPressed: () {
+                      pickImage();
+                    },
+                    icon: Icon(
                       Icons.edit,
-                      color: globals.red,
+                      color: red,
                       size: 28,
-                    ))
+                    ),
+                  ),
+                )
               ],
             ),
             Center(
               child: Text(
-                'Абдувасит Абдуманнобзода Бахтиярович',
+                user['name'] ?? '',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -85,59 +150,49 @@ class _ProfileState extends State<Profile> {
             ),
             Center(
               child: Text(
-                '+998 (90) 123 45 67',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: globals.black),
+                '${user['phone'] != null ? formatPhone(user['phone']) : ''}',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: black),
               ),
             ),
             SizedBox(
               height: 20,
             ),
-            Center(
-              child: Text(
-                'Вы не завершили проверку',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Center(
-              child: Text('Осталось несколько шагов',
-                  style: TextStyle(
-                      color: globals.lightGrey,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500)),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(55, 15, 55, 30),
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.toNamed('/verification');
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: Text(
-                  'Продолжить проверку',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                ),
-              ),
-            ),
+            // Center(
+            //   child: Text(
+            //     'Вы не завершили проверку',
+            //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 5,
+            // ),
+            // Center(
+            //   child: Text('Осталось несколько шагов', style: TextStyle(color: lightGrey, fontSize: 17, fontWeight: FontWeight.w500)),
+            // ),
+            // Container(
+            //   margin: EdgeInsets.fromLTRB(55, 15, 55, 30),
+            //   width: double.infinity,
+            //   child: ElevatedButton(
+            //     onPressed: () {
+            //       Get.toNamed('/verification');
+            //     },
+            //     style: ElevatedButton.styleFrom(
+            //       padding: EdgeInsets.symmetric(vertical: 16),
+            //       elevation: 0,
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(12),
+            //       ),
+            //     ),
+            //     child: Text(
+            //       'Продолжить проверку',
+            //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+            //     ),
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.fromLTRB(16, 30, 16, 15),
-              decoration: BoxDecoration(
-                  color: globals.inputColor,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16))),
+              decoration:
+                  BoxDecoration(color: inputColor, borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))),
               child: Column(
                 children: [
                   for (var i = 0; i < profile.length; i++)
@@ -146,10 +201,7 @@ class _ProfileState extends State<Profile> {
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15),
                         padding: EdgeInsets.only(bottom: 15),
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Color(0xFFDADADA), width: 1))),
+                        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFFDADADA), width: 1))),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -158,13 +210,11 @@ class _ProfileState extends State<Profile> {
                               children: [
                                 Text(
                                   profile[i]['name'],
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                                 ),
                                 Icon(
                                   Icons.edit,
-                                  color: globals.black,
+                                  color: black,
                                 )
                               ],
                             ),
@@ -172,63 +222,206 @@ class _ProfileState extends State<Profile> {
                               margin: EdgeInsets.only(top: 5, right: 50),
                               child: Text(
                                 profile[i]['description'],
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF707070)),
+                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF707070)),
                               ),
                             )
                           ],
                         ),
                       ),
                     ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    padding: EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Color(0xFFDADADA), width: 1))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Удалить аккаунт',
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons.delete,
-                          color: globals.red,
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    padding: EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Color(0xFFDADADA), width: 1))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Выйти',
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons.logout,
-                          color: globals.red,
-                        )
-                      ],
+                  // Container(
+                  //   margin: EdgeInsets.only(bottom: 15),
+                  //   padding: EdgeInsets.only(bottom: 15),
+                  //   decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFFDADADA), width: 1))),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Text(
+                  //         'Удалить аккаунт',
+                  //         style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  //       ),
+                  //       Icon(
+                  //         Icons.delete,
+                  //         color: red,
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  GestureDetector(
+                    onTap: () {
+                      logout();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 15),
+                      padding: EdgeInsets.only(bottom: 15),
+                      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFFDADADA), width: 1))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Выйти',
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                          ),
+                          Icon(
+                            Icons.logout,
+                            color: red,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future pickImage() async {
+    final source = await showImageSource(context);
+    if (source == null) return;
+    try {
+      XFile? img = await ImagePicker().pickImage(source: source);
+      if (img == null) return;
+      final response = await uploadImage('/services/executor/api/upload/image', File(img.path));
+      String jsonsDataString = response.toString();
+      final jsonData = jsonDecode(jsonsDataString);
+      final user = await get('/services/executor/api/get-info');
+      dynamic sendData = {};
+      setState(() {
+        sendData = user;
+        sendData['passImageUrlList'].add(
+          {'fileUrl': jsonData['url']},
+        );
+      });
+      final responsePut = await put('/services/executor/api/update-executor', sendData);
+      if (responsePut != null) {
+        // Get.offAllNamed('/', arguments: 2);
+      }
+      setState(() {
+        // imageUrl = jsonData['url'];
+      });
+    } on PlatformException catch (e) {
+      print('ERROR: $e');
+    }
+  }
+
+  Future<ImageSource?> showImageSource(BuildContext context) async {
+    return showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      builder: (context) => Container(
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 35),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Color(0xFFF2F2F2),
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 15),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Добавить из галереи'.tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: black,
+                      ),
+                    ),
+                    Icon(
+                      Icons.camera_alt,
+                      color: lightGrey,
+                      size: 18,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(ImageSource.camera),
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Color(0xFFF2F2F2),
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 15),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Сделать снимок'.tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: black,
+                      ),
+                    ),
+                    Icon(
+                      Icons.image,
+                      color: lightGrey,
+                      size: 18,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Отмена'.tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: black,
+                      ),
+                    ),
+                    Icon(
+                      Icons.close,
+                      color: lightGrey,
+                      size: 18,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
