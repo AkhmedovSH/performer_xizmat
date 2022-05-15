@@ -24,17 +24,19 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
-    'username': '998998325455', // 998 998325455
-    'password': '112233', // 112233
+    'username': '+998 ', // 998 998325455
+    'password': '', // 112233
   };
   bool showPassword = true;
 
   login() async {
-    // setState(() {
-    //   sendData['username'] = '998' + maskFormatter.getUnmaskedText();
-    // });
+    print(maskFormatter.getUnmaskedText());
+    setState(() {
+      sendData['username'] = '998' + maskFormatter.getUnmaskedText().replaceAll(' ', '');
+    });
+    print(sendData['username']);
     final prefs = await SharedPreferences.getInstance();
     dynamic response = {};
     try {

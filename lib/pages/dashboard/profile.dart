@@ -103,18 +103,29 @@ class _ProfileState extends State<Profile> {
             Stack(
               children: [
                 Center(
-                  child: SizedBox(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 10),
                     width: 86,
                     height: 86,
-                    child: CircleAvatar(
-                      radius: 30.0,
-                      backgroundColor: Colors.transparent,
-                      child: Image.asset(
-                        'images/circle_avatar.png',
-                        height: 86,
-                        width: 86,
-                      ),
-                    ),
+                    child: user['imageUrl'] != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.network(
+                              mainUrl + user['imageUrl'],
+                              height: 86,
+                              width: 86,
+                              fit: BoxFit.fill,
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: 30.0,
+                            backgroundColor: Colors.transparent,
+                            child: Image.asset(
+                              'images/circle_avatar.png',
+                              height: 86,
+                              width: 86,
+                            ),
+                          ),
                   ),
                 ),
                 Positioned(

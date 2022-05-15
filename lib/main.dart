@@ -8,6 +8,8 @@ import 'helpers/globals.dart';
 
 // Main
 
+import 'package:xizmat/pages/splash.dart';
+
 import 'pages/dashboard/dashboard.dart';
 import 'pages/chat.dart';
 import 'pages/dashboard/balance.dart';
@@ -91,8 +93,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       getPages: [
+        GetPage(name: '/splash', page: () => Splash()),
+
         GetPage(name: '/chat', page: () => Chat()),
         GetPage(name: '/balance', page: () => Balance()),
         GetPage(name: '/payment', page: () => Payment()),

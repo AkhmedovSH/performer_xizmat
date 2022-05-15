@@ -173,50 +173,50 @@ class _VerificationState extends State<Verification> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(bottom: 40),
-              child: widgets.Button(
-                text: 'Отправить',
-                onClick: () {
-                  if (user['passImageUrlList'].length > 0) {
-                    Get.toNamed('/', arguments: 2);
-                  } else {
-                    showErrorToast('Загрузите одно фото');
-                  }
-                  // Get.toNamed('/add-category');
-                },
-              ),
-            ),
-            Center(
-              child: Text(
-                'Верифицироваться через менеджера',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 45),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Color(0xFF707070), width: 1),
-                  ),
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/why-need-verification');
-                  },
-                  child: Text(
-                    'Зачем нужна верификация?',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF707070),
-                    ),
-                  ),
-                ),
-              ),
-            )
+            // Center(
+            //   child: Text(
+            //     'Верифицироваться через менеджера',
+            //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // Center(
+            //   child: Container(
+            //     margin: EdgeInsets.only(top: 45),
+            //     decoration: BoxDecoration(
+            //       border: Border(
+            //         bottom: BorderSide(color: Color(0xFF707070), width: 1),
+            //       ),
+            //     ),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         Get.toNamed('/why-need-verification');
+            //       },
+            //       child: Text(
+            //         'Зачем нужна верификация?',
+            //         style: TextStyle(
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.bold,
+            //           color: Color(0xFF707070),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
+        ),
+      ),
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(left: 32),
+        child: widgets.Button(
+          text: 'Отправить',
+          onClick: () {
+            if (user['passImageUrlList'].length > 0) {
+              Get.toNamed('/', arguments: 2);
+            } else {
+              showErrorToast('Загрузите одно фото');
+            }
+            // Get.toNamed('/add-category');
+          },
         ),
       ),
     );

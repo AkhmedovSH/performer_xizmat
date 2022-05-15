@@ -28,6 +28,10 @@ class _RegisterState extends State<Register> {
   };
 
   register() async {
+    final checkLogin = await get('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
+    if (checkLogin['message'] == 'error.login.used') {
+      showErrorToast('Телефон номер уже используется');
+    }
     setState(() {
       sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
     });
@@ -245,26 +249,6 @@ class _RegisterState extends State<Register> {
                       hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                     ),
                     style: const TextStyle(color: Color(0xFF9C9C9C)),
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 11, top: 30),
-                  child: Text(
-                    'Есть аккаунт?',
-                    style: TextStyle(color: lightGrey, fontSize: 17),
-                  ),
-                ),
-              ),
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/login');
-                  },
-                  child: Text(
-                    'Войти',
-                    style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

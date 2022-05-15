@@ -42,7 +42,7 @@ class _ConfirmationState extends State<Confirmation> {
           showErrorToast('Введен неправильный код');
         }
         if (response['success']) {
-          Get.offAllNamed('/service-area');
+          Get.offAllNamed('/login');
         }
       }
     }

@@ -34,7 +34,8 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(
                 Icons.arrow_back,
                 color: globals.black,
-              ))
+              ),
+            )
           : Container(),
     );
   }

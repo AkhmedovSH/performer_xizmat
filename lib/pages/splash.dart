@@ -31,9 +31,9 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    login();
+    // login();
     // checkVersion();
-    // startTimer();
+    startTimer();
   }
 
   login() async {
@@ -43,6 +43,7 @@ class _SplashState extends State<Splash> {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       final user = jsonDecode(prefs.getString('user')!);
+      final getInfo = await get('/services/executor/api/get-info');
       final response = await guestPost('/auth/login', {
         'username': user['username'],
         'password': user['password'],
@@ -77,7 +78,21 @@ class _SplashState extends State<Splash> {
           // var firebaseToken = await FirebaseMessaging.instance.getToken();
           // await put('/services/gocashmobile/api/firebase-token', {'token': firebaseToken});
 
-          Get.offAllNamed('/');
+          if (getInfo['imageUrl'] == null) {
+            Get.offAllNamed('/upload-photo');
+            return;
+          }
+          if (getInfo['passImageUrlList'].length == 0) {
+            Get.offAllNamed('/verification');
+            return;
+          }
+
+          if (getInfo['passImageUrlList'].length == 0) {
+            Get.offAllNamed('/verification');
+            return;
+          } else {
+            Get.offAllNamed('/');
+          }
         }
       }
     } else {
