@@ -1,4 +1,4 @@
-package uz.xizmat24.client
+package uz.xizmat24.cabinet
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -31,9 +31,9 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    // login();
+    login();
     // checkVersion();
-    startTimer();
+    // startTimer();
   }
 
   login() async {

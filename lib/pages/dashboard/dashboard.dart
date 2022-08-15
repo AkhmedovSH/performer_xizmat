@@ -226,13 +226,13 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
         onTap: () => {
-          if (routeName == '/') Get.offAllNamed('/'),
+          if (routeName == '/') Navigator.pop(context),
           if (routeName == '/fast-search') Get.toNamed('/fast-search'),
           if (routeName == '/categories') Get.toNamed('/categories'),
           if (routeName == '/orders') changeIndex(1),
           if (routeName == '/order-by-manager') Get.toNamed('/order-by-manager'),
           if (routeName == '/support') Get.toNamed('/support'),
-          Navigator.pop(context),
+          // Navigator.pop(context),
         },
       ),
     );

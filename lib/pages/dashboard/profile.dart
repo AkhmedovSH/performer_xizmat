@@ -126,7 +126,7 @@ class _ProfileState extends State<Profile> {
                               width: 86,
                             ),
                           ),
-                  ),
+                  ),    
                 ),
                 Positioned(
                   top: 20,

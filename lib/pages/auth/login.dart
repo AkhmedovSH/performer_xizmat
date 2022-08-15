@@ -29,15 +29,19 @@ class _LoginState extends State<Login> {
     'username': '+998 ', // 998 998325455
     'password': '', // 112233
   };
+  dynamic data = {
+    'username': TextEditingController(text: '+998 '), // 998 998325455
+    'password': '', // 112233
+  };
   bool showPassword = true;
 
   login() async {
-    print(maskFormatter.getUnmaskedText());
-    setState(() {
-      sendData['username'] = '998' + maskFormatter.getUnmaskedText().replaceAll(' ', '');
-    });
-    print(sendData['username']);
     final prefs = await SharedPreferences.getInstance();
+    if (maskFormatter.getUnmaskedText().isNotEmpty) {
+      setState(() {
+        sendData['username'] = '998' + maskFormatter.getUnmaskedText();
+      });
+    }
     dynamic response = {};
     try {
       final login = await dio.post('https://admin.xizmat24.uz/auth/login', data: sendData);
@@ -122,14 +126,20 @@ class _LoginState extends State<Login> {
                         ),
                         child: TextFormField(
                           inputFormatters: [maskFormatter],
+                          controller: data['username'],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'required_field'.tr;
                             }
                             return null;
                           },
-                          initialValue: sendData['username'],
                           onChanged: (value) {
+                            if (value == '') {
+                              setState(() {
+                                data['username'].text = '+998 ';
+                                data['username'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
+                              });
+                            }
                             setState(() {
                               sendData['username'] = value;
                             });
