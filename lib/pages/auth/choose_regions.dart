@@ -30,7 +30,7 @@ class _ChooseRegionsState extends State<ChooseRegions> {
     sendData['regionName'] = regions[0]['name'];
     final response = await put('/services/executor/api/update-executor', sendData);
     if (response != null) {
-      Get.back();
+      Get.toNamed('/');
     }
     return false;
   }

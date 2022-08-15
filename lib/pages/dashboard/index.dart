@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'package:get/get.dart';
+import 'package:xizmat/helpers/api.dart';
 
 import '../../helpers/globals.dart' as globals;
 
@@ -25,29 +26,30 @@ class _IndexState extends State<Index> {
     //   "autoConnect": false,
     //   "query": { "token": '/mobile' }
     // });
-    socket = IO.io(
-        "http://mb.xizmat24.uz:9193/executor-orders-1",
-        IO.OptionBuilder()
-            .enableForceNew() // <--- this method
-            .setTransports(['websocket'])
-            .setQuery({
-              "apiKey": "f72206f2-f2f7-11ec-9a5f-0242ac12000b",
-            })
-            .disableAutoConnect()
-            .build());
-    socket!.connect();
-    socket!.onConnect((data) {
-      print(data);
-      print('connect');
-    });
-    socket!.on('executor-orders-1', (data) {
-      print(data);
-      if (mounted) {
-        setState(() {
-          orders = data;
-        });
-      }
-    });
+    final user = await get('/services/executor/api/get-info');
+    print(user['id']);
+    // socket = IO.io(
+    //     "http://xizmat24.uz:9194/executor-orders-1",
+    //     IO.OptionBuilder()
+    //         .setTransports(['websocket'])
+    //         .setQuery({
+    //           "apiKey": user['apiKey'],
+    //         })
+    //         .disableAutoConnect()
+    //         .build());
+    // socket!.connect();
+    // socket!.onConnect((data) {
+    //   print(data);
+    //   print('connect');
+    // });
+    // socket!.on('executor-orders-1', (data) {
+    //   print(data);
+    //   if (mounted) {
+    //     setState(() {
+    //       orders = data;
+    //     });
+    //   }
+    // });
   }
 
   @override

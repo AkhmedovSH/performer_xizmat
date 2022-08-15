@@ -31,9 +31,9 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    login();
+    // login();
     // checkVersion();
-    // startTimer();
+    startTimer();
   }
 
   login() async {
@@ -86,7 +86,6 @@ class _SplashState extends State<Splash> {
             Get.offAllNamed('/verification');
             return;
           }
-
           if (getInfo['passImageUrlList'].length == 0) {
             Get.offAllNamed('/verification');
             return;

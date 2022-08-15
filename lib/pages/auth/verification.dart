@@ -211,7 +211,7 @@ class _VerificationState extends State<Verification> {
           text: 'Отправить',
           onClick: () {
             if (user['passImageUrlList'].length > 0) {
-              Get.toNamed('/', arguments: 2);
+              Get.toNamed('/choose-regions');
             } else {
               showErrorToast('Загрузите одно фото');
             }
