@@ -31,9 +31,9 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    // login();
+    login();
     // checkVersion();
-    startTimer();
+    // startTimer();
   }
 
   login() async {
@@ -43,13 +43,13 @@ class _SplashState extends State<Splash> {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       final user = jsonDecode(prefs.getString('user')!);
-      final getInfo = await get('/services/executor/api/get-info');
       final response = await guestPost('/auth/login', {
         'username': user['username'],
         'password': user['password'],
       });
       if (response != null) {
         prefs.setString('access_token', response['access_token'].toString());
+        final getInfo = await get('/services/executor/api/get-info');
         var account = await get('/services/uaa/api/account');
         var checkAccess = false;
         for (var i = 0; i < account['authorities'].length; i++) {

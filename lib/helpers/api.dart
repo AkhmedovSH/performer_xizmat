@@ -36,7 +36,7 @@ Future get(String url, {payload}) async {
   }
 }
 
-Future post(String url, dynamic payload) async {
+Future post(String url, dynamic payload) async { 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   try {
     final response = await dio.post(hostUrl + url,
@@ -75,17 +75,13 @@ Future put(String url, dynamic payload) async {
 
 Future delete(String url) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  print(url);
   try {
     final response = await dio.delete(hostUrl + url,
         options: Options(headers: {
           'authorization': "Bearer ${prefs.getString('access_token')}",
         }));
-    print(response.statusCode);
-    print(response.data);
     return response.data;
   } on DioError catch (e) {
-    print(e.response?.statusCode);
     statuscheker(e);
   }
 }
@@ -109,7 +105,6 @@ uploadImage(url, File file) async {
     );
     return response.data;
   } on DioError catch (e) {
-    print(e.response?.statusCode);
     statuscheker(e);
   }
 }

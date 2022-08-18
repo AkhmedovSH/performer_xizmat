@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'helpers/globals.dart';
+import 'helpers/translations.dart';
 
 // Main
 
@@ -20,6 +21,8 @@ import 'pages/dashboard/support.dart';
 
 import 'pages/dashboard/profile.dart';
 import 'pages/Profile/speciality.dart';
+import 'pages/Profile/speciality2.dart';
+import 'pages/Profile/speciality3.dart';
 import 'pages/Profile/add_category.dart';
 import 'pages/Profile/category_inside.dart';
 import 'pages/Profile/why_need_verification.dart';
@@ -52,7 +55,7 @@ void main() async {
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitDown, 
   ]);
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -70,7 +73,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // translations: Messages(),
+      translations: Messages(),
       locale: const Locale('ru', 'RU'),
       fallbackLocale: const Locale('uz', 'UZ'),
       debugShowCheckedModeBanner: false,
@@ -106,6 +109,8 @@ class MyApp extends StatelessWidget {
 
         GetPage(name: '/profile', page: () => Profile()),
         GetPage(name: '/speciality', page: () => Speciality()),
+        GetPage(name: '/speciality-2', page: () => Speciality2()),
+        GetPage(name: '/speciality-3', page: () => Speciality3()),
         GetPage(name: '/add-category', page: () => AddCategory()),
         GetPage(name: '/category-inside', page: () => CategoryInside()),
         GetPage(name: '/why-need-verification', page: () => WhyNeedVerification()),

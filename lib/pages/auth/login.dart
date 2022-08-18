@@ -252,7 +252,7 @@ class _LoginState extends State<Login> {
             Container(
               margin: EdgeInsets.only(bottom: 10),
               child: widgets.Button(
-                text: 'Войти',
+                text: 'login'.tr,
                 onClick: () {
                   login();
                 },
@@ -262,7 +262,7 @@ class _LoginState extends State<Login> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Нет аккаунта'.tr + '?',
+                  'no_account'.tr + '?',
                   style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                 ),
                 GestureDetector(
@@ -270,7 +270,7 @@ class _LoginState extends State<Login> {
                     Get.toNamed('/register');
                   },
                   child: Text(
-                    'Регистрация'.tr,
+                    'registration'.tr,
                     style: TextStyle(color: red, fontWeight: FontWeight.w500, fontSize: 16),
                   ),
                 ),

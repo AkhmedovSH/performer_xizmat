@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "385185439995",
-    "project_id": "xizmat-client",
-    "storage_bucket": "xizmat-client.appspot.com"
+    "project_number": "803812044853",
+    "project_id": "xizmat-executor",
+    "storage_bucket": "xizmat-executor.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:385185439995:android:a1a4e7736c89644f52505e",
+        "mobilesdk_app_id": "1:803812044853:android:bf3871537e8ab4b087c17c",
         "android_client_info": {
           "package_name": "uz.xizmat24.cabinet"
         }
       },
       "oauth_client": [
         {
-          "client_id": "385185439995-vjka0sjlljc7ajp8lnk74teadfg6oiu4.apps.googleusercontent.com",
+          "client_id": "803812044853-32sgvf9gebrdc00c25dl69nthlknukcd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "uz.xizmat24.cabinet",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "385185439995-7jm42nr8ajn570v6hc9luc0dse6t3l11.apps.googleusercontent.com",
+          "client_id": "803812044853-4i9ao7r8v66707v9i7dkkfvksok8kmgq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBQ5XcUmiXmEEfyErkfw8RlfawHBN2hhNo"
+          "current_key": "AIzaSyCOzBHmFY67p9TZEC87lZ2zlbTGS6MDpbY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "385185439995-7jm42nr8ajn570v6hc9luc0dse6t3l11.apps.googleusercontent.com",
+              "client_id": "803812044853-4i9ao7r8v66707v9i7dkkfvksok8kmgq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

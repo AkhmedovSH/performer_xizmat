@@ -20,6 +20,13 @@ class _IndexState extends State<Index> {
   IO.Socket? socket;
   dynamic orders = [];
 
+  orderAccept(id) async {
+    final response = await post('/services/executor/api/order-interested', {
+      "id": id,
+      "note": "otklik",
+    });
+  }
+
   void connect() async {
     // socket = IO.io('https://xizmat24.uz:9193/user-orders-1?apiKey=f72206f2-f2f7-11ec-9a5f-0242ac12000b', {
     //   "transports": ["websocket"],
@@ -27,35 +34,39 @@ class _IndexState extends State<Index> {
     //   "query": { "token": '/mobile' }
     // });
     final user = await get('/services/executor/api/get-info');
-    print(user['id']);
-    // socket = IO.io(
-    //     "http://xizmat24.uz:9194/executor-orders-1",
-    //     IO.OptionBuilder()
-    //         .setTransports(['websocket'])
-    //         .setQuery({
-    //           "apiKey": user['apiKey'],
-    //         })
-    //         .disableAutoConnect()
-    //         .build());
-    // socket!.connect();
-    // socket!.onConnect((data) {
-    //   print(data);
-    //   print('connect');
-    // });
-    // socket!.on('executor-orders-1', (data) {
-    //   print(data);
-    //   if (mounted) {
-    //     setState(() {
-    //       orders = data;
-    //     });
-    //   }
-    // });
+    socket = IO.io(
+        "http://ex.xizmat24.uz:9194/executor-orders-1",
+        IO.OptionBuilder()
+            .setTransports(['websocket'])
+            .setQuery({
+              "apiKey": user['apiKey'],
+            })
+            .disableAutoConnect()
+            .build());
+    socket!.connect();
+    socket!.onConnect((data) {
+      print('connect');
+    });
+    socket!.on('executor-orders-1', (data) {
+      if (mounted) {
+        setState(() {
+          orders = data;
+        });
+      }
+    });
   }
 
   @override
   void initState() {
     super.initState();
     connect();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // socket!.disconnect();
+    // socket!.dispose();
   }
 
   @override
@@ -153,86 +164,108 @@ class _IndexState extends State<Index> {
                   )
                 ],
               ),
+              orders.length == 0
+                  ? Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 50),
+                        child: Text(
+                          'Нет заказов',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(),
               for (var i = 0; i < orders.length; i++)
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/order-inside');
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(16),
-                    margin: EdgeInsets.only(bottom: 10, top: 20),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: globals.inputColor),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [Text('№ 345 666', style: TextStyle(fontWeight: FontWeight.w500)), Icon(Icons.arrow_forward)],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 15, bottom: 5),
-                          child: Text('Занятия по высшей математике', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('бюджет:400 000 сум', style: TextStyle(fontSize: 16, color: globals.lightGrey, fontWeight: FontWeight.bold)),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 20),
-                          child: Text('Дата исполнения: 09.20.2021, 13:00',
-                              style: TextStyle(fontSize: 14, color: globals.lightGrey, fontWeight: FontWeight.w500)),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                !orders[i]['interested']
+                    ? GestureDetector(
+                        onTap: () {
+                          Get.toNamed('/order-inside');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(16),
+                          margin: EdgeInsets.only(bottom: 10, top: 20),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: globals.inputColor),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                // margin: EdgeInsets.only(right: 10),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(vertical: 8),
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Откликнуться',
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                                  ),
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('№ ${orders[i]['orderNumber']}', style: TextStyle(fontWeight: FontWeight.w500)),
+                                  Icon(Icons.arrow_forward),
+                                ],
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 15, bottom: 5),
+                                child: Text('${orders[i]['categoryChildName']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(bottom: 5),
+                                child: Text('бюджет:${orders[i]['orderAmount']} сум',
+                                    style: TextStyle(fontSize: 16, color: globals.lightGrey, fontWeight: FontWeight.bold)),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(bottom: 20),
+                                child: Text('Дата исполнения: 09.20.2021, 13:00',
+                                    style: TextStyle(fontSize: 14, color: globals.lightGrey, fontWeight: FontWeight.w500)),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.3,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Get.toNamed('/chat');
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                                    elevation: 0,
-                                    primary: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(color: globals.black),
-                                      borderRadius: BorderRadius.circular(4),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.5,
+                                      // margin: EdgeInsets.only(right: 10),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          orderAccept(orders[i]['id']);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(vertical: 8),
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          'Откликнуться',
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  child: Text(
-                                    'Написать',
-                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
-                                  ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.3,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Get.toNamed('/chat');
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                                          elevation: 0,
+                                          primary: Colors.transparent,
+                                          shape: RoundedRectangleBorder(
+                                            side: BorderSide(color: globals.black),
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          'Написать',
+                                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+                              )
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                        ),
+                      )
+                    : Container(),
             ],
           ),
         ),

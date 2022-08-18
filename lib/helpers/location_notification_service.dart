@@ -21,7 +21,7 @@ class LocalNotificationService {
 
       NotificationDetails notificationDetails = const NotificationDetails(
           android: AndroidNotificationDetails(
-        'moneyBekproject',
+        'xizmat24Project',
         'easyapproach channel',
         importance: Importance.max,
         priority: Priority.high,

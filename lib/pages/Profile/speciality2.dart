@@ -7,18 +7,18 @@ import '../../widgets.dart' as widgets;
 
 import '../../../components/simple_app_bar.dart';
 
-class Speciality extends StatefulWidget {
-  const Speciality({Key? key}) : super(key: key);
+class Speciality2 extends StatefulWidget {
+  const Speciality2({Key? key}) : super(key: key);
 
   @override
-  _SpecialityState createState() => _SpecialityState();
+  _Speciality2State createState() => _Speciality2State();
 }
 
-class _SpecialityState extends State<Speciality> {
+class _Speciality2State extends State<Speciality2> {
   dynamic items = [];
 
   getCategories() async {
-    final response = await get('/services/executor/api/category-list');
+    final response = await get('/services/executor/api/category-child-list/${Get.arguments}');
     setState(() {
       items = response;
     });
@@ -50,7 +50,7 @@ class _SpecialityState extends State<Speciality> {
               for (var i = 0; i < items.length; i++)
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed('/speciality-2', arguments: items[i]['id']);
+                    Get.toNamed('/speciality-3', arguments: items[i]['id']);
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 15),
@@ -70,7 +70,7 @@ class _SpecialityState extends State<Speciality> {
                       ],
                     ),
                   ),
-                ),
+                )
             ],
           ),
         ),

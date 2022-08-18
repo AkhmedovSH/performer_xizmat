@@ -227,8 +227,8 @@ class _DashboardState extends State<Dashboard> {
         ),
         onTap: () => {
           if (routeName == '/') Navigator.pop(context),
-          if (routeName == '/fast-search') Get.toNamed('/fast-search'),
-          if (routeName == '/categories') Get.toNamed('/categories'),
+          if (routeName == '/current-orders') Get.toNamed('/current-orders'),
+          if (routeName == '/proposed-orders') Get.toNamed('/proposed-orders'),
           if (routeName == '/orders') changeIndex(1),
           if (routeName == '/order-by-manager') Get.toNamed('/order-by-manager'),
           if (routeName == '/support') Get.toNamed('/support'),

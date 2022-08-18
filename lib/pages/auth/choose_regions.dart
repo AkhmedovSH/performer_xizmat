@@ -21,11 +21,14 @@ class _ChooseRegionsState extends State<ChooseRegions> {
     final user = await get('/services/executor/api/get-info');
     dynamic sendData = {};
     sendData = user;
-    // for (var i = 0; i < regions.length; i++) {
-    //   if (regions[i]['isChecked']) {
-    //     sendData['regionId'].add(regions[i]['id']);
-    //   }
-    // }
+    sendData['regionId'] = [];
+    for (var i = 0; i < regions.length; i++) {
+      if (regions[i]['isChecked']) {
+        // sendData['regionId'].add(regions[i]['id'].toString());
+        sendData['regionId'] = regions[i]['id'];
+        sendData['regionName'] = regions[i]['name'];
+      }
+    }
     sendData['regionId'] = regions[0]['id'];
     sendData['regionName'] = regions[0]['name'];
     final response = await put('/services/executor/api/update-executor', sendData);

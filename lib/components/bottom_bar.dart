@@ -15,7 +15,6 @@ class _BottomBarState extends State<BottomBar> {
   // int active = 0;
 
   onItemTab(int index) {
-    print(index);
     if (index != widget.active) {
       setState(() {
         // active = index;
