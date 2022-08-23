@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:new_version/new_version.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:xizmat/helpers/api.dart';
@@ -31,8 +31,8 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    login();
-    // checkVersion();
+    // login();
+    checkVersion();
     // startTimer();
   }
 
@@ -100,30 +100,30 @@ class _SplashState extends State<Splash> {
   }
 
   void checkVersion() async {
-    final newVersion = NewVersion(androidId: 'uz.cashbek.cabinet');
-    final status = await newVersion.getVersionStatus();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String localVersion = packageInfo.version;
+    var playMarketVersion = await guestGet('/services/admin/api/get-version?name=uz.xizmat24.cabinet');
+    print(playMarketVersion);
+    if (playMarketVersion == null) {
+      startTimer();
+      return;
+    }
+    print(localVersion);
 
-    setState(() {
-      vesrion = status!.localVersion;
-      url = status.appStoreLink.toString();
-    });
-
-    if (status!.storeVersion != status.localVersion) {
-      final lastVersion = status.storeVersion.split('.')[2];
-      if ((int.parse(lastVersion) % 3).round() == 0) {
+    if (playMarketVersion['version'] != localVersion) {
+      if (playMarketVersion['required']) {
+        print('req');
+        print(playMarketVersion);
         setState(() {
           isRequired = true;
         });
       }
-
       await showUpdateDialog();
       if (isRequired) {
         SystemNavigator.pop();
-        // startTimer();
       } else {
         startTimer();
       }
-      return;
     } else {
       startTimer();
     }
@@ -188,9 +188,9 @@ class _SplashState extends State<Splash> {
                     ),
                     Text(
                       isRequired
-                          ? 'you_need_to_install_the_latest_version_to_continue_using_the_app'.tr + '"moneyBek".'
+                          ? 'you_need_to_install_the_latest_version_to_continue_using_the_app'.tr + '"xizmat24".'
                           : 'we_recommend_installing_the_latest_version_of_the_application'.tr +
-                              '"moneyBek".' +
+                              '"xizmat24".' +
                               'while_downloading_updates_you_can_still_use_it'.tr +
                               '.',
                       style: const TextStyle(color: Colors.black, height: 1.2),

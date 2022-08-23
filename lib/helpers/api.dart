@@ -50,6 +50,20 @@ Future post(String url, dynamic payload) async {
   }
 }
 
+Future guestGet(String url, {payload}) async {
+  try {
+    final response = await dio.get(
+      hostUrl + url,
+      queryParameters: payload,
+      options:
+          Options(headers: {"Language": getx.Get.locale.toString().substring(0, 2), "Accept-Language": getx.Get.locale.toString().substring(0, 2)}),
+    );
+    return response.data;
+  } on DioError catch (e) {
+    statuscheker(e);
+  }
+}
+
 Future guestPost(String url, dynamic payload) async {
   try {
     final response = await dio.post(hostUrl + url, data: payload);

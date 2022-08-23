@@ -5,6 +5,13 @@ final ru = {
   'login': 'Войти',
   'no_account': 'Нет аккаунта',
   'registration': 'Регистрация',
+  'update_app': 'Обновить приложение',
+  'we_recommend_installing_the_latest_version_of_the_application': 'Рекомендуем установить последнюю версию приложения',
+  'you_need_to_install_the_latest_version_to_continue_using_the_app':
+      'Требуется установить последнюю версию чтобы продолжить использовать приложение',
+  'while_downloading_updates_you_can_still_use_it': 'Во время скачивания обновлений вы по-прежнему сможете им пользоваться',
+  'no_thanks': 'НЕТ, СПАСИБО',
+  'update': 'ОБНОВИТЬ',
   '': '',
   '': '',
   '': '',
