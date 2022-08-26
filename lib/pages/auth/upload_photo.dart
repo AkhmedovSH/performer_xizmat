@@ -141,7 +141,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
         String jsonsDataString = response.toString();
         final jsonData = jsonDecode(jsonsDataString);
         setState(() {
-          user['imageUrl'] = jsonData['url'];
+          user['imageUrl'] = jsonData['url'].toString();
         });
         final responsePut = await put('/services/executor/api/update-executor', user);
         if (responsePut != null) {

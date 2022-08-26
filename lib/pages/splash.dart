@@ -174,7 +174,7 @@ class _SplashState extends State<Splash> {
               contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               insetPadding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
               title: Text(
-                'update_app'.tr + ' "moneyBek"',
+                'update_app'.tr + ' "xizmat24"',
                 style: const TextStyle(color: Colors.black),
                 // textAlign: TextAlign.center,
               ),

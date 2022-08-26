@@ -18,7 +18,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
-  var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   bool showPassword = true;
   bool showConfirmPassword = true;
   dynamic sendData = {
@@ -26,11 +26,16 @@ class _RegisterState extends State<Register> {
     'password': '',
     'confirmPassword': '',
   };
+  dynamic data = {
+    'username': TextEditingController(text: '+998 '), // 998 998325455
+    'password': '', // 112233
+  };
 
   register() async {
-    final checkLogin = await get('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
+    final checkLogin = await guestGet('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
     if (checkLogin['message'] == 'error.login.used') {
       showErrorToast('Телефон номер уже используется');
+      return;
     }
     setState(() {
       sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
@@ -69,16 +74,22 @@ class _RegisterState extends State<Register> {
                         ),
                         child: TextFormField(
                           inputFormatters: [maskFormatter],
+                          controller: data['username'],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'required_field'.tr;
                             }
                             return null;
                           },
-                          initialValue: sendData['phone'],
                           onChanged: (value) {
+                            if (value == '') {
+                              setState(() {
+                                data['username'].text = '+998 ';
+                                data['username'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
+                              });
+                            }
                             setState(() {
-                              sendData['phone'] = value;
+                              sendData['username'] = value;
                             });
                           },
                           keyboardType: TextInputType.number,

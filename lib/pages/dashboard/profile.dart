@@ -117,16 +117,24 @@ class _ProfileState extends State<Profile> {
                               fit: BoxFit.fill,
                             ),
                           )
-                        : CircleAvatar(
-                            radius: 30.0,
-                            backgroundColor: Colors.transparent,
-                            child: Image.asset(
-                              'images/circle_avatar.png',
-                              height: 86,
-                              width: 86,
+                        : Container(
+                            width: 86,
+                            height: 86,
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF8F8F8),
+                              borderRadius: BorderRadius.all(Radius.circular(50)),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Icon(
+                                Icons.person,
+                                size: 40,
+                                color: lightGrey,
+                              ),
                             ),
                           ),
-                  ),    
+                  ),
                 ),
                 Positioned(
                   top: 20,

@@ -64,3 +64,15 @@ showErrorToast(message) {
     fontSize: 16.0,
   );
 }
+
+showWarningToast(message) {
+  return Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 1,
+    backgroundColor: Color(0xFFffc107),
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}

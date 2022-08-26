@@ -4,6 +4,8 @@ import '../../helpers/globals.dart';
 
 import '../../../components/simple_app_bar.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class Support extends StatefulWidget {
   const Support({Key? key}) : super(key: key);
 
@@ -13,6 +15,14 @@ class Support extends StatefulWidget {
 
 class _SupportState extends State<Support> {
   dynamic character = 1;
+
+  call() async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: '+998909889099',
+    );
+    await launchUrl(launchUri);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +40,16 @@ class _SupportState extends State<Support> {
             margin: EdgeInsets.only(bottom: 25),
             child: Text(
               'Телефон: +998 90 988 90 99',
-              style: TextStyle(
-                  color: black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
           Container(
             margin: EdgeInsets.fromLTRB(16, 0, 16, 20),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                call();
+              },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 elevation: 0,
@@ -88,10 +97,7 @@ class _SupportState extends State<Support> {
                   ),
                   Text(
                     'Онлайн чат',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                        color: black),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: black),
                   )
                 ],
               ),

@@ -262,7 +262,7 @@ class _VerificationState extends State<Verification> {
                       ),
                     ),
                     Icon(
-                      Icons.camera_alt,
+                      Icons.image,
                       color: lightGrey,
                       size: 18,
                     ),
@@ -299,7 +299,7 @@ class _VerificationState extends State<Verification> {
                       ),
                     ),
                     Icon(
-                      Icons.image,
+                      Icons.camera_alt,
                       color: lightGrey,
                       size: 18,
                     ),

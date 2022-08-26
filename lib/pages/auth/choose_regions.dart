@@ -22,12 +22,18 @@ class _ChooseRegionsState extends State<ChooseRegions> {
     dynamic sendData = {};
     sendData = user;
     sendData['regionId'] = [];
+    dynamic regionSelected = false;
     for (var i = 0; i < regions.length; i++) {
       if (regions[i]['isChecked']) {
         // sendData['regionId'].add(regions[i]['id'].toString());
         sendData['regionId'] = regions[i]['id'];
         sendData['regionName'] = regions[i]['name'];
+        regionSelected = true;
       }
+    }
+    if (!regionSelected) {
+      showWarningToast('Выберите один город');
+      return;
     }
     sendData['regionId'] = regions[0]['id'];
     sendData['regionName'] = regions[0]['name'];
