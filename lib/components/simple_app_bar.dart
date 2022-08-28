@@ -20,11 +20,11 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: globals.black,
         ),
       ),
-      // systemOverlayStyle: SystemUiOverlayStyle(
-      //   statusBarColor: Colors.white,
-      //   statusBarBrightness: Brightness.dark,
-      //   statusBarIconBrightness: Brightness.dark,
-      // ),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+      ),
       centerTitle: true,
       leading: leading!
           ? IconButton(

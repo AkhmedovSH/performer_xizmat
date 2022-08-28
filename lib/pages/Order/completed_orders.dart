@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
 import 'package:xizmat/helpers/api.dart';
 import '../../helpers/globals.dart' as globals;
@@ -41,6 +43,11 @@ class _CompletedOrdersState extends State<CompletedOrders> {
           'Завершенные заказы',
           style: TextStyle(color: globals.black),
         ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.black,
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
+        ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -55,11 +62,7 @@ class _CompletedOrdersState extends State<CompletedOrders> {
           Container(),
         ],
       ),
-      drawer: Container(
-        padding: EdgeInsets.all(0),
-        width: MediaQuery.of(context).size.width * 0.95,
-        child: DrawerAppBar(),
-      ),
+      drawer: DrawerAppBar(),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 25),

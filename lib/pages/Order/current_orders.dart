@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:xizmat/helpers/api.dart';
 import '../../helpers/globals.dart' as globals;
 
@@ -48,6 +50,11 @@ class _CurrentOrdersState extends State<CurrentOrders> {
           style: TextStyle(color: globals.black),
         ),
         centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
+        ),
         leading: IconButton(
           onPressed: () {
             _scaffoldKey.currentState!.openDrawer();
@@ -61,11 +68,7 @@ class _CurrentOrdersState extends State<CurrentOrders> {
           Container(),
         ],
       ),
-      drawer: Container(
-        padding: EdgeInsets.all(0),
-        width: MediaQuery.of(context).size.width * 0.95,
-        child: DrawerAppBar(),
-      ),
+      drawer: DrawerAppBar(),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 25),

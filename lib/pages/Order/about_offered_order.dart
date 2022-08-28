@@ -19,8 +19,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
   final Completer<GoogleMapController> _controller = Completer();
   dynamic character = 1;
 
-  static final CameraPosition _kGooglePlex =
-      CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
+  static final CameraPosition _kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
 
   @override
   Widget build(BuildContext context) {
@@ -43,45 +42,25 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                       margin: EdgeInsets.only(top: 15, bottom: 5),
                       child: Text(
                         'Занятия по высшей математике',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(
                         margin: EdgeInsets.only(bottom: 15),
-                        child: Text('бюджет:400 000 сум',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: globals.lightGrey))),
+                        child: Text('бюджет:400 000 сум', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
                     Container(
                         margin: EdgeInsets.only(bottom: 10),
-                        child: Text('Дата исполнения',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: globals.lightGrey))),
+                        child: Text('Дата исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
                     Container(
                         margin: EdgeInsets.only(bottom: 20),
-                        child: Text('09.20.2021, 13:00',
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFF444444)))),
+                        child: Text('09.20.2021, 13:00', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF444444)))),
                     Container(
                         margin: EdgeInsets.only(bottom: 10),
-                        child: Text('Место оказания',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: globals.lightGrey))),
+                        child: Text('Место оказания', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
                     Container(
                         margin: EdgeInsets.only(bottom: 20),
                         child: Text('Ташкент, Яккасарайский район',
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFF444444)))),
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF444444)))),
                     Container(
                       margin: EdgeInsets.only(bottom: 20),
                       child: Stack(
@@ -107,10 +86,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: globals.white,
-                                      borderRadius:
-                                          BorderRadius.circular(50.0)),
+                                  decoration: BoxDecoration(color: globals.white, borderRadius: BorderRadius.circular(50.0)),
                                   child: Image.asset(
                                     'images/send.png',
                                   ),
@@ -125,11 +101,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                     ),
                     Container(
                         margin: EdgeInsets.only(bottom: 12),
-                        child: Text('Заказчик',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: globals.lightGrey))),
+                        child: Text('Заказчик', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
                     Container(
                       margin: EdgeInsets.only(bottom: 15),
                       child: Row(
@@ -138,27 +110,18 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                             margin: EdgeInsets.only(right: 10),
                             child: Image.asset('images/circle_avatar.png'),
                           ),
-                          Text('Абдувасит Абдуманнобзода',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold))
+                          Text('Абдувасит Абдуманнобзода', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
                         ],
                       ),
                     ),
                     Container(
                         margin: EdgeInsets.only(bottom: 12),
-                        child: Text('Примечание',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: globals.lightGrey))),
+                        child: Text('Примечание', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
                     Container(
                         margin: EdgeInsets.only(bottom: 20),
                         child: Text(
                             'Нужно провести 10 уроков по математике так, чтобы мой сын гуманитарий - лоботряс поступил в нефтехазовый институт.',
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFF444444)))),
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF444444)))),
                   ],
                 ),
               ),
@@ -171,14 +134,9 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
                     decoration: BoxDecoration(
                       color: globals.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0)),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
                       boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black38,
-                            spreadRadius: -3,
-                            blurRadius: 5),
+                        BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
                       ],
                     ),
                     child: Column(
@@ -194,8 +152,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                               child: ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 10),
+                                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                                   elevation: 0,
                                   primary: globals.red,
                                   shape: RoundedRectangleBorder(
@@ -204,10 +161,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                                 ),
                                 child: Text(
                                   'Принять заказ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15,
-                                      color: globals.white),
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.white),
                                 ),
                               ),
                             ),
@@ -220,8 +174,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 10),
+                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                                     elevation: 0,
                                     primary: globals.white,
                                     shape: RoundedRectangleBorder(
@@ -231,10 +184,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                                   ),
                                   child: Text(
                                     'Написать',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
-                                        color: globals.black),
+                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
                                   ),
                                 ),
                               ),
@@ -253,10 +203,7 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                             ),
                             Text(
                               'Отказаться от заказа',
-                              style: TextStyle(
-                                  color: Color(0xFF707070),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Color(0xFF707070), fontSize: 16, fontWeight: FontWeight.bold),
                             )
                           ],
                         )

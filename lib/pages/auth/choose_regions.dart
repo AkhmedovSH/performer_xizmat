@@ -41,7 +41,7 @@ class _ChooseRegionsState extends State<ChooseRegions> {
     if (response != null) {
       Get.toNamed('/');
     }
-    return false;
+    return false; 
   }
 
   getRegions() async {
