@@ -24,7 +24,7 @@ class _ServiceAreaState extends State<ServiceArea> {
     sendData['departure'] = isChecked;
     final response = await put('/services/executor/api/update-executor', user);
     if (response != null) {
-      Get.toNamed('/upload-photo');
+      // Get.offAllNamed('/');
     }
   }
 
@@ -83,6 +83,7 @@ class _ServiceAreaState extends State<ServiceArea> {
                           setState(() {
                             isChecked = value;
                           });
+                          changeDeparture();
                         },
                         activeTrackColor: inputColor,
                         activeColor: darkRed,
@@ -134,7 +135,7 @@ class _ServiceAreaState extends State<ServiceArea> {
         child: widgets.Button(
           text: 'Применить',
           onClick: () {
-            Get.toNamed('/upload-photo');
+            Get.offAllNamed('/');
             // changeDeparture();
           },
         ),

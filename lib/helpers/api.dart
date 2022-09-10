@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -36,7 +37,7 @@ Future get(String url, {payload}) async {
   }
 }
 
-Future post(String url, dynamic payload) async { 
+Future post(String url, dynamic payload) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   try {
     final response = await dio.post(hostUrl + url,
@@ -125,8 +126,10 @@ uploadImage(url, File file) async {
 
 statuscheker(e) async {
   print(e.response?.statusCode);
+  String jsonsDataString = e.response.toString();
+  final jsonData = jsonDecode(jsonsDataString);
   if (e.response?.statusCode == 400) {
-    showErrorToast(e.message);
+    showErrorToast(jsonData['message'].toString().tr);
   }
   if (e.response?.statusCode == 401) {
     showErrorToast('incorrect_login_or_password'.tr);

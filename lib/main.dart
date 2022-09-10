@@ -40,6 +40,10 @@ import 'pages/auth/service_area.dart';
 import 'pages/auth/choose_regions.dart';
 import 'pages/auth/upload_photo.dart';
 import 'pages/auth/verification.dart';
+import 'pages/auth/update_user.dart';
+import 'pages/auth/choose_cities.dart';
+import 'pages/auth/reset_password/reset_password_init.dart';
+import 'pages/auth/reset_password/reset_password_finish.dart';
 
 // Orders
 
@@ -55,7 +59,7 @@ void main() async {
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown, 
+    DeviceOrientation.portraitDown,
   ]);
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -137,6 +141,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/upload-photo', page: () => UploadPhoto()),
         GetPage(name: '/service-area', page: () => ServiceArea()),
         GetPage(name: '/choose-regions', page: () => ChooseRegions()),
+        GetPage(name: '/choose-cities', page: () => ChooseCity()),
+        GetPage(name: '/update-user', page: () => UpdateUser()),
+        GetPage(name: '/reset-password-init', page: () => const ResetPasswordInit()),
+        GetPage(name: '/reset-password-finish', page: () => const ResetPasswordFinish()),
       ],
     );
   }

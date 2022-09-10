@@ -28,10 +28,12 @@ class _LoginState extends State<Login> {
   dynamic sendData = {
     'username': '+998 ', // 998 998325455
     'password': '', // 112233
+    'isRemember': false,
   };
   dynamic data = {
     'username': TextEditingController(text: '+998 '), // 998 998325455
-    'password': '', // 112233
+    'password': TextEditingController(), // 112233
+    'isRemember': false,
   };
   bool showPassword = true;
 
@@ -55,10 +57,11 @@ class _LoginState extends State<Login> {
       var account = await get('/services/uaa/api/account');
       var checkAccess = false;
       for (var i = 0; i < account['authorities'].length; i++) {
-        if (account['authorities'][i] == 'ROLE_CLIENT') {
+        if (account['authorities'][i] == 'ROLE_EXECUTOR') {
           checkAccess = true;
         }
       }
+      print(checkAccess);
       if (checkAccess) {
         LocalNotificationService.initialize(context);
         FirebaseMessaging.instance.getInitialMessage().then((message) {
@@ -66,8 +69,6 @@ class _LoginState extends State<Login> {
             Get.offAllNamed('/notifications');
           }
         });
-
-        ///forground work
         FirebaseMessaging.onMessage.listen((message) {
           if (message.notification != null) {}
           LocalNotificationService.display(message);
@@ -76,10 +77,53 @@ class _LoginState extends State<Login> {
         FirebaseMessaging.onMessageOpenedApp.listen((message) {
           Get.offAllNamed('/notifications');
         });
-
-        Get.toNamed('/service-area');
+        final user = await get('/services/executor/api/get-info');
+        if (user['name'] == null || user['name'] == '') {
+          Get.toNamed('/update-user');
+          return;
+        }
+        if (user['imageUrl'] == null) {
+          Get.toNamed('/upload-photo');
+          return;
+        }
+        if (user['passImageUrlList'].length == 0) {
+          Get.toNamed('/verification');
+          return;
+        }
+        if (user['passImageUrlList'].length == 0) {
+          Get.toNamed('/verification');
+          return;
+        } else {
+          Get.offAllNamed('/');
+        }
+      } else {
+        showErrorToast('Нет доступа');
       }
     }
+  }
+
+  checkIsRemember() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user') != null) {
+      final user = jsonDecode(prefs.getString('user')!);
+      if (user['isRemember'] != null) {
+        if (user['isRemember']) {
+          setState(() {
+            sendData['isRemember'] = user['isRemember'];
+            sendData['username'] = user['username'];
+            sendData['password'] = user['password'];
+            data['username'].text = maskFormatter.maskText(user['username'].substring(3, user['username'].length));
+            data['password'].text = user['password'];
+          });
+        }
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkIsRemember();
   }
 
   @override
@@ -183,7 +227,7 @@ class _LoginState extends State<Login> {
                             }
                             return null;
                           },
-                          initialValue: sendData['password'],
+                          controller: data['password'],
                           onChanged: (value) {
                             setState(() {
                               sendData['password'] = value;
@@ -236,6 +280,53 @@ class _LoginState extends State<Login> {
                           style: const TextStyle(color: Color(0xFF9C9C9C)),
                         ),
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Checkbox(
+                              checkColor: Colors.white,
+                              activeColor: red,
+                              value: sendData['isRemember'],
+                              onChanged: (value) {
+                                setState(() {
+                                  sendData['isRemember'] = !sendData['isRemember'];
+                                });
+                              },
+                            ),
+                            const Text(
+                              'Запомнить',
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/reset-password-init');
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: red,
+                                  width: 1,
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              'Забыли пароль?',
+                              style: TextStyle(
+                                color: red,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

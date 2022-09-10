@@ -18,7 +18,7 @@ class _Speciality2State extends State<Speciality2> {
   dynamic items = [];
 
   getCategories() async {
-    final response = await get('/services/executor/api/category-child-list/${Get.arguments}');
+    final response = await get('/services/executor/api/category-child-list/${Get.arguments['id']}');
     setState(() {
       items = response;
     });
@@ -50,7 +50,7 @@ class _Speciality2State extends State<Speciality2> {
               for (var i = 0; i < items.length; i++)
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed('/speciality-3', arguments: items[i]['id']);
+                    Get.toNamed('/speciality-3', arguments: {'id': items[i]['id'], 'value': Get.arguments['value']});
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 15),

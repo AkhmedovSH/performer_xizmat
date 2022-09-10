@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../helpers/api.dart';
 import '../../helpers/globals.dart';
@@ -32,18 +34,24 @@ class _ConfirmationState extends State<Confirmation> {
   dynamic timerMax = 120;
 
   checkCode() async {
+    final prefs = await SharedPreferences.getInstance();
     setState(() {
       sendData['activationCode'] = maskFormatter.getUnmaskedText();
     });
     final response = await guestPost('/services/executor/api/activate-executor', sendData);
     if (response != null) {
-      if (response != null) {
-        if (response['message'] == 'error.activation.code') {
-          showErrorToast('Введен неправильный код');
-        }
-        if (response['success']) {
-          Get.offAllNamed('/login');
-        }
+      final user = {
+        'username': sendData['phone'], // 998 998325455
+        'password': sendData['password'], // 112233
+        'isRemember': false,
+      };
+      prefs.setString('access_token', response['access_token'].toString());
+      prefs.setString('user', jsonEncode(user));
+      if (response['message'] == 'error.activation.code') {
+        showErrorToast('Введен неправильный код');
+      }
+      if (response['success']) {
+        Get.offAllNamed('/update-user');
       }
     }
   }

@@ -110,7 +110,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
         child: widgets.Button(
           text: 'Далее',
           onClick: () {
-            Get.toNamed('/verification');
+            Get.toNamed('/speciality', arguments: 1);
           },
         ),
       ),

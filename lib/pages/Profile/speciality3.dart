@@ -20,7 +20,7 @@ class _Speciality3State extends State<Speciality3> {
 
   setCategories() async {
     dynamic sendData = {
-      "categoryId": Get.arguments,
+      "categoryId": Get.arguments['id'],
       "stepList": [
         {
           "stepId": item['id'],
@@ -39,19 +39,25 @@ class _Speciality3State extends State<Speciality3> {
     }
     final response = await post('/services/executor/api/executor-order', sendData);
     if (response != null) {
-      Get.toNamed('/');
+      if (Get.arguments['value'] == 1) {
+        Get.toNamed('/service-area');
+        return;
+      }
+      Get.offAllNamed('/');
     }
   }
 
   getCategories() async {
-    final response = await get('/services/mobile/api/step-category/${Get.arguments}');
-    for (var i = 0; i < response['optionList'].length; i++) {
-      response['optionList'][i]['isChecked'] = false;
+    final response = await get('/services/mobile/api/step-category/${Get.arguments['id']}');
+    if (response['optionList'] != null) {
+      for (var i = 0; i < response['optionList'].length; i++) {
+        response['optionList'][i]['isChecked'] = false;
+      }
+      setState(() {
+        item = response;
+        checkBoxList = response['optionList'];
+      });
     }
-    setState(() {
-      item = response;
-      checkBoxList = response['optionList'];
-    });
   }
 
   @override

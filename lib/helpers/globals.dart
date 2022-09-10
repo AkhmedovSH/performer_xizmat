@@ -33,6 +33,9 @@ formatMoney(amount) {
 }
 
 formatPhone(phone) {
+  if (phone.length < 12) {
+    return phone;
+  }
   var x = phone.substring(0, 3);
   var y = phone.substring(3, 5);
   var z = phone.substring(5, 8);

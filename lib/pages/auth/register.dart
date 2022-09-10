@@ -33,8 +33,7 @@ class _RegisterState extends State<Register> {
 
   register() async {
     final checkLogin = await guestGet('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
-    if (checkLogin['message'] == 'error.login.used') {
-      showErrorToast('Телефон номер уже используется');
+    if (checkLogin == null) {
       return;
     }
     setState(() {

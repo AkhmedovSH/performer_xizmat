@@ -34,7 +34,7 @@ class _ProfileState extends State<Profile> {
       'name': 'Районы и адреса',
       'description': 'Где вам удобно работать, принимаете ли вы клиентов у себя',
       'onClick': () {
-        Get.toNamed('/service-area');
+        Get.toNamed('/choose-regions');
       }
     },
     {
@@ -62,7 +62,7 @@ class _ProfileState extends State<Profile> {
       'name': 'О себе',
       'description': 'Образование, опыт работы и кратко о себе',
       'onClick': () {
-        Get.toNamed('/about-me');
+        Get.toNamed('/update-user', arguments: 1);
       }
     },
   ];

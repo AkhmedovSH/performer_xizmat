@@ -50,7 +50,7 @@ class _SpecialityState extends State<Speciality> {
               for (var i = 0; i < items.length; i++)
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed('/speciality-2', arguments: items[i]['id']);
+                    Get.toNamed('/speciality-2', arguments: {'id': items[i]['id'], 'value': Get.arguments});
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 15),

@@ -7,48 +7,50 @@ import '../../helpers/globals.dart';
 import '../../components/simple_app_bar.dart';
 import '../../widgets.dart';
 
-class ChooseRegions extends StatefulWidget {
-  const ChooseRegions({Key? key}) : super(key: key);
+class ChooseCity extends StatefulWidget {
+  const ChooseCity({Key? key}) : super(key: key);
 
   @override
-  State<ChooseRegions> createState() => _ChooseRegionsState();
+  State<ChooseCity> createState() => _ChooseCityState();
 }
 
-class _ChooseRegionsState extends State<ChooseRegions> {
-  dynamic regions = [];
+class _ChooseCityState extends State<ChooseCity> {
+  dynamic cities = [];
   dynamic selectedButton = '0';
   dynamic sendData = {};
 
-  setRegions() async {
+  setcities() async {
     final user = await get('/services/executor/api/get-info');
-    sendData = user;
-    sendData['cityId'] = selectedButton;
+    setState(() {
+      sendData = user;
+      sendData['cityId'] = selectedButton;
+    });
     final response = await put('/services/executor/api/update-executor', sendData);
     if (response != null) {
-      Get.toNamed('/choose-cities', arguments: sendData['cityId']);
+      Get.toNamed('/upload-photo');
     }
     return false;
   }
 
-  getRegions() async {
-    final response = await get('/services/executor/api/region-helper');
+  getCities() async {
+    final response = await get('/services/executor/api/city-helper/${Get.arguments}');
     setState(() {
-      regions = response;
-      selectedButton = regions[0]['id'];
+      cities = response;
+      selectedButton = cities[0]['id'];
     });
   }
 
   @override
   void initState() {
     super.initState();
-    getRegions();
+    getCities();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return setRegions();
+        return setcities();
       },
       child: Scaffold(
           appBar: SimpleAppBar(
@@ -58,11 +60,11 @@ class _ChooseRegionsState extends State<ChooseRegions> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                for (var i = 0; i < regions.length; i++)
+                for (var i = 0; i < cities.length; i++)
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedButton = regions[i]['id'];
+                        selectedButton = cities[i]['id'];
                       });
                     },
                     child: Container(
@@ -71,24 +73,24 @@ class _ChooseRegionsState extends State<ChooseRegions> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(regions[i]['name']),
+                          Text(cities[i]['name']),
                           Radio<dynamic>(
-                            value: regions[i]['id'],
+                            value: cities[i]['id'],
                             groupValue: selectedButton,
                             onChanged: (value) {
                               setState(() {
                                 selectedButton = value;
-                                sendData['cityName'] = regions[i]['name'];
+                                sendData['cityName'] = cities[i]['name'];
                               });
                             },
                             activeColor: red,
                           ),
                           // Checkbox(
-                          //   value: regions[i]['isChecked'],
+                          //   value: cities[i]['isChecked'],
                           //   activeColor: red,
                           //   onChanged: (value) {
                           //     setState(() {
-                          //       regions[i]['isChecked'] = !regions[i]['isChecked'];
+                          //       cities[i]['isChecked'] = !cities[i]['isChecked'];
                           //     });
                           //   },
                           // )
@@ -106,7 +108,7 @@ class _ChooseRegionsState extends State<ChooseRegions> {
             margin: EdgeInsets.only(left: 32),
             child: Button(
               onClick: () {
-                setRegions();
+                setcities();
               },
               text: 'Продолжить',
             ),

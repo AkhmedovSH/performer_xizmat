@@ -40,63 +40,9 @@ class _SplashState extends State<Splash> {
     // setState(() {
     //   sendData['username'] = '998' + maskFormatter.getUnmaskedText();
     // });
-    final prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('user') != null) {
-      final user = jsonDecode(prefs.getString('user')!);
-      final response = await guestPost('/auth/login', {
-        'username': user['username'],
-        'password': user['password'],
-      });
-      if (response != null) {
-        prefs.setString('access_token', response['access_token'].toString());
-        final getInfo = await get('/services/executor/api/get-info');
-        var account = await get('/services/uaa/api/account');
-        var checkAccess = false;
-        for (var i = 0; i < account['authorities'].length; i++) {
-          if (account['authorities'][i] == 'ROLE_CLIENT') {
-            checkAccess = true;
-          }
-        }
-        if (checkAccess) {
-          LocalNotificationService.initialize(context);
-          FirebaseMessaging.instance.getInitialMessage().then((message) {
-            if (message != null) {
-              Get.offAllNamed('/notifications');
-            }
-          });
-          FirebaseMessaging.onMessage.listen((message) {
-            if (message.notification != null) {
-              //Get.toNamed('/');
-            }
-            LocalNotificationService.display(message);
-          });
-
-          FirebaseMessaging.onMessageOpenedApp.listen((message) {
-            Get.offAllNamed('/notifications');
-          });
-
-          // var firebaseToken = await FirebaseMessaging.instance.getToken();
-          // await put('/services/gocashmobile/api/firebase-token', {'token': firebaseToken});
-
-          if (getInfo['imageUrl'] == null) {
-            Get.offAllNamed('/upload-photo');
-            return;
-          }
-          if (getInfo['passImageUrlList'].length == 0) {
-            Get.offAllNamed('/verification');
-            return;
-          }
-          if (getInfo['passImageUrlList'].length == 0) {
-            Get.offAllNamed('/verification');
-            return;
-          } else {
-            Get.offAllNamed('/');
-          }
-        }
-      }
-    } else {
+   
       Get.offAllNamed('/login');
-    }
+    
   }
 
   void checkVersion() async {
