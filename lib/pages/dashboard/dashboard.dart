@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xizmat/pages/dashboard/balance.dart';
 
 import '../../helpers/globals.dart';
 
 import '../../components/drawer_app_bar.dart';
 
 import 'index.dart';
-import 'balance.dart';
+import 'orders.dart';
 import 'profile.dart';
 import 'support.dart';
 
@@ -51,9 +52,10 @@ class _DashboardState extends State<Dashboard> {
                   openDrawerBar: openDrawerBar,
                 )
               : Container(),
-          currentIndex == 1 ? const Balance() : Container(),
-          currentIndex == 2 ? const Profile() : Container(),
-          currentIndex == 3 ? const Support() : Container(),
+          currentIndex == 1 ? const Orders() : Container(),
+          currentIndex == 2 ? const Balance() : Container(),
+          currentIndex == 3 ? const Profile() : Container(),
+          currentIndex == 4 ? const Support() : Container(),
         ],
       ),
       drawer: currentIndex == 0 ? DrawerAppBar() : Container(),
@@ -80,7 +82,8 @@ class _DashboardState extends State<Dashboard> {
               selectedItemColor: black,
               selectedIconTheme: IconThemeData(color: black),
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Заказы'),
+                BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Активные'),
+                BottomNavigationBarItem(icon: Icon(Icons.list_alt, color: Color(0xFF828282)), label: 'Заказы'),
                 BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet_rounded, color: Color(0xFF828282)), label: 'Баланс'),
                 BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFF828282)), label: 'Профиль'),
                 BottomNavigationBarItem(icon: Icon(Icons.headset_mic, color: Color(0xFF828282)), label: 'Поддержка'),

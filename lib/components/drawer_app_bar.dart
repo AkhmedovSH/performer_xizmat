@@ -190,6 +190,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
           if (routeName == '/current-orders') Get.toNamed('/current-orders'),
           if (routeName == '/proposed-orders') Get.toNamed('/proposed-orders'),
           if (routeName == '/orders') Navigator.pop(context),
+          if (routeName == '/completed-orders') Get.toNamed('/completed-orders'),
           if (routeName == '/order-by-manager') Get.toNamed('/order-by-manager'),
           if (routeName == '/support') Get.offAllNamed('/', arguments: 3),
           // Navigator.pop(context),

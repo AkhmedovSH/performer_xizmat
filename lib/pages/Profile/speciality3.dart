@@ -43,6 +43,10 @@ class _Speciality3State extends State<Speciality3> {
         Get.toNamed('/service-area');
         return;
       }
+      if (Get.arguments['value'] == 2) {
+        Get.offAllNamed('/', arguments: 2);
+        return;
+      }
       Get.offAllNamed('/');
     }
   }

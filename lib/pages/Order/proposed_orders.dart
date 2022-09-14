@@ -44,7 +44,7 @@ class _ProposedOrdersState extends State<ProposedOrders> {
         ),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.black,
+          statusBarColor: Colors.white,
           statusBarBrightness: Brightness.dark,
           statusBarIconBrightness: Brightness.dark,
         ),

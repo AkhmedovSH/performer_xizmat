@@ -27,13 +27,17 @@ class _ChooseCityState extends State<ChooseCity> {
     });
     final response = await put('/services/executor/api/update-executor', sendData);
     if (response != null) {
+      if (Get.arguments['value'] == 1) {
+        Get.toNamed('/service-area', arguments: 1);
+        return;
+      }
       Get.toNamed('/upload-photo');
     }
     return false;
   }
 
   getCities() async {
-    final response = await get('/services/executor/api/city-helper/${Get.arguments}');
+    final response = await get('/services/executor/api/city-helper/${Get.arguments['id']}');
     setState(() {
       cities = response;
       selectedButton = cities[0]['id'];

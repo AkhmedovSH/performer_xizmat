@@ -27,21 +27,21 @@ class _ProfileState extends State<Profile> {
       'name': 'Специальности',
       'description': 'Выбор специальностей, редактирование услуг и цен на них',
       'onClick': () {
-        Get.toNamed('/speciality');
+        Get.toNamed('/speciality', arguments: 2);
       }
     },
     {
       'name': 'Районы и адреса',
       'description': 'Где вам удобно работать, принимаете ли вы клиентов у себя',
       'onClick': () {
-        Get.toNamed('/choose-regions');
+        Get.toNamed('/choose-regions', arguments: 1);
       }
     },
     {
       'name': 'Фото паспорта',
       'description': 'Для верификации в приложении',
       'onClick': () {
-        Get.toNamed('/verification');
+        Get.toNamed('/verification', arguments: 1);
       }
     },
     {

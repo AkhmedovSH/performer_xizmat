@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../helpers/globals.dart' as globals;
 import '../../../widgets.dart' as widgets;
@@ -41,7 +40,7 @@ class _BalanceState extends State<Balance> {
                   Container(
                     margin: EdgeInsets.only(top: 5, bottom: 15),
                     child: Text(
-                      '200 000  сум',
+                      '0  сум',
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF363F4D)),
                     ),
                   ),
@@ -50,7 +49,7 @@ class _BalanceState extends State<Balance> {
                     child: widgets.Button(
                       text: 'Пополнить баланс',
                       onClick: () {
-                        Get.toNamed('/payment');
+                        // Get.toNamed('/payment');
                       },
                     ),
                   ),
@@ -61,7 +60,10 @@ class _BalanceState extends State<Balance> {
                         margin: EdgeInsets.only(right: 5),
                         child: Icon(Icons.support_agent),
                       ),
-                      Text('Служба поддержки', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
+                      Text(
+                        'Служба поддержки',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      )
                     ],
                   )
                 ],
@@ -74,35 +76,35 @@ class _BalanceState extends State<Balance> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF363F4D)),
               ),
             ),
-            for (var i = 0; i < 2; i++)
-              Container(
-                padding: EdgeInsets.only(bottom: 15),
-                margin: EdgeInsets.only(bottom: 15),
-                decoration: BoxDecoration(border: Border(bottom: BorderSide(color: globals.borderColor, width: 1))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Заказ№ 345 666', style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w500)),
-                        Text('09.20.2021, 13:00', style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w500))
-                      ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 4, bottom: 2),
-                      child: Text(
-                        '200 000 сум',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                    Text(
-                      'Комиссия: 25 000 сум',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-              )
+            // for (var i = 0; i < 2; i++)
+            //   Container(
+            //     padding: EdgeInsets.only(bottom: 15),
+            //     margin: EdgeInsets.only(bottom: 15),
+            //     decoration: BoxDecoration(border: Border(bottom: BorderSide(color: globals.borderColor, width: 1))),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             Text('Заказ№ 345 666', style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w500)),
+            //             Text('09.20.2021, 13:00', style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w500))
+            //           ],
+            //         ),
+            //         Container(
+            //           margin: EdgeInsets.only(top: 4, bottom: 2),
+            //           child: Text(
+            //             '200 000 сум',
+            //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            //           ),
+            //         ),
+            //         Text(
+            //           'Комиссия: 25 000 сум',
+            //           style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            //         )
+            //       ],
+            //     ),
+            //   )
           ],
         ),
       ),

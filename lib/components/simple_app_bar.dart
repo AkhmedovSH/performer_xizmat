@@ -29,6 +29,7 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: leading!
           ? IconButton(
               onPressed: () {
+                print(1111);
                 Get.back();
               },
               icon: Icon(

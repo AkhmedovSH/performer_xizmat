@@ -45,13 +45,17 @@ class _ConfirmationState extends State<Confirmation> {
         'password': sendData['password'], // 112233
         'isRemember': false,
       };
-      prefs.setString('access_token', response['access_token'].toString());
+      final login = await guestPost('/auth/login', user);
+      prefs.setString('access_token', login['access_token'].toString());
       prefs.setString('user', jsonEncode(user));
       if (response['message'] == 'error.activation.code') {
         showErrorToast('Введен неправильный код');
       }
+      if (response['message'] == 'error.already.registered') {
+        showErrorToast('Телефон уже используется');
+      }
       if (response['success']) {
-        Get.offAllNamed('/update-user');
+        Get.toNamed('/login');
       }
     }
   }

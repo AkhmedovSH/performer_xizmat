@@ -19,8 +19,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
-  bool showPassword = true;
-  bool showConfirmPassword = true;
+  AnimationController? animationController;
   dynamic sendData = {
     'phone': '',
     'password': '',
@@ -31,18 +30,41 @@ class _RegisterState extends State<Register> {
     'password': '', // 112233
   };
 
+  bool showPasswordFields = false;
+  bool showPassword = true;
+  bool showConfirmPassword = true;
+  bool loading = false;
+
   register() async {
-    final checkLogin = await guestGet('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
-    if (checkLogin == null) {
-      return;
-    }
     setState(() {
       sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
+      loading = true;
     });
     final response = await guestPost('/services/executor/api/register-executor', sendData);
+    setState(() {
+      loading = false;
+    });
     if (response != null) {
       Get.toNamed('/confirmation', arguments: sendData);
     }
+  }
+
+  checkLogin() async {
+    setState(() {
+      loading = true;
+    });
+    final checkLogin = await guestGet('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
+    if (checkLogin != null) {
+      if (checkLogin['success']) {
+        setState(() {
+          showPasswordFields = !checkLogin['password'];
+        });
+        return;
+      }
+    }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -90,14 +112,21 @@ class _RegisterState extends State<Register> {
                             setState(() {
                               sendData['username'] = value;
                             });
+                            if (value.length < 17) {
+                              showPasswordFields = false;
+                            }
+                            if (value.length == 17) {
+                              checkLogin();
+                            }
                           },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             prefixIcon: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.phone_iphone,
-                                )),
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.phone_iphone,
+                              ),
+                            ),
                             contentPadding: const EdgeInsets.all(18.0),
                             focusColor: red,
                             filled: true,
@@ -118,150 +147,154 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 25),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    colorScheme: ThemeData().colorScheme.copyWith(
-                          primary: red,
-                        ),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'required_field'.tr;
-                      }
-                      return null;
-                    },
-                    initialValue: sendData['password'],
-                    onChanged: (value) {
-                      setState(() {
-                        sendData['password'] = value;
-                      });
-                    },
-                    obscureText: showPassword,
-                    decoration: InputDecoration(
-                      prefixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.lock,
-                        ),
-                      ),
-                      suffixIcon: showPassword
-                          ? IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  showPassword = false;
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.visibility_off,
+              showPasswordFields
+                  ? Container(
+                      margin: const EdgeInsets.only(bottom: 25),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ThemeData().colorScheme.copyWith(
+                                primary: red,
                               ),
-                            )
-                          : IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  showPassword = true;
-                                });
-                              },
+                        ),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'required_field'.tr;
+                            }
+                            return null;
+                          },
+                          initialValue: sendData['password'],
+                          onChanged: (value) {
+                            setState(() {
+                              sendData['password'] = value;
+                            });
+                          },
+                          obscureText: showPassword,
+                          decoration: InputDecoration(
+                            prefixIcon: IconButton(
+                              onPressed: () {},
                               icon: const Icon(
-                                Icons.visibility,
+                                Icons.lock,
                               ),
                             ),
-                      contentPadding: const EdgeInsets.all(18.0),
-                      focusColor: red,
-                      filled: true,
-                      fillColor: Colors.transparent,
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: red),
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red[700]!),
-                      ),
-                      hintText: 'password'.tr,
-                      hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                    ),
-                    style: const TextStyle(color: Color(0xFF9C9C9C)),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 25),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    colorScheme: ThemeData().colorScheme.copyWith(
-                          primary: red,
-                        ),
-                  ),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'required_field'.tr;
-                      }
-                      if (value != sendData['password']) {
-                        return 'passwords_must_match'.tr;
-                      }
-                      return null;
-                    },
-                    initialValue: sendData['confirmPassword'],
-                    onChanged: (value) {
-                      setState(() {
-                        sendData['confirmPassword'] = value;
-                      });
-                    },
-                    scrollPadding: const EdgeInsets.all(50),
-                    obscureText: showConfirmPassword,
-                    decoration: InputDecoration(
-                      prefixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.lock,
+                            suffixIcon: showPassword
+                                ? IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        showPassword = false;
+                                      });
+                                    },
+                                    icon: const Icon(
+                                      Icons.visibility_off,
+                                    ),
+                                  )
+                                : IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        showPassword = true;
+                                      });
+                                    },
+                                    icon: const Icon(
+                                      Icons.visibility,
+                                    ),
+                                  ),
+                            contentPadding: const EdgeInsets.all(18.0),
+                            focusColor: red,
+                            filled: true,
+                            fillColor: Colors.transparent,
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: red),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red[700]!),
+                            ),
+                            hintText: 'password'.tr,
+                            hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                          ),
+                          style: const TextStyle(color: Color(0xFF9C9C9C)),
                         ),
                       ),
-                      suffixIcon: showConfirmPassword
-                          ? IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  showConfirmPassword = false;
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.visibility_off,
+                    )
+                  : Container(),
+              showPasswordFields
+                  ? Container(
+                      margin: const EdgeInsets.only(bottom: 25),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ThemeData().colorScheme.copyWith(
+                                primary: red,
                               ),
-                            )
-                          : IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  showConfirmPassword = true;
-                                });
-                              },
+                        ),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'required_field'.tr;
+                            }
+                            if (value != sendData['password']) {
+                              return 'passwords_must_match'.tr;
+                            }
+                            return null;
+                          },
+                          initialValue: sendData['confirmPassword'],
+                          onChanged: (value) {
+                            setState(() {
+                              sendData['confirmPassword'] = value;
+                            });
+                          },
+                          scrollPadding: const EdgeInsets.all(50),
+                          obscureText: showConfirmPassword,
+                          decoration: InputDecoration(
+                            prefixIcon: IconButton(
+                              onPressed: () {},
                               icon: const Icon(
-                                Icons.visibility,
+                                Icons.lock,
                               ),
                             ),
-                      contentPadding: const EdgeInsets.all(18.0),
-                      focusColor: red,
-                      filled: true,
-                      fillColor: Colors.transparent,
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                            suffixIcon: showConfirmPassword
+                                ? IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        showConfirmPassword = false;
+                                      });
+                                    },
+                                    icon: const Icon(
+                                      Icons.visibility_off,
+                                    ),
+                                  )
+                                : IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        showConfirmPassword = true;
+                                      });
+                                    },
+                                    icon: const Icon(
+                                      Icons.visibility,
+                                    ),
+                                  ),
+                            contentPadding: const EdgeInsets.all(18.0),
+                            focusColor: red,
+                            filled: true,
+                            fillColor: Colors.transparent,
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: red),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red[700]!),
+                            ),
+                            hintText: 'confirm_password'.tr,
+                            hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                          ),
+                          style: const TextStyle(color: Color(0xFF9C9C9C)),
+                        ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: red),
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red[700]!),
-                      ),
-                      hintText: 'confirm_password'.tr,
-                      hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                    ),
-                    style: const TextStyle(color: Color(0xFF9C9C9C)),
-                  ),
-                ),
-              ),
+                    )
+                  : Container(),
             ],
           ),
         ),

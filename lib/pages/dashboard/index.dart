@@ -49,6 +49,7 @@ class _IndexState extends State<Index> {
     });
     socket!.on('executor-orders-1', (data) {
       if (mounted) {
+        print(data);
         setState(() {
           orders = data;
         });
@@ -182,7 +183,7 @@ class _IndexState extends State<Index> {
                 !orders[i]['interested']
                     ? GestureDetector(
                         onTap: () {
-                          Get.toNamed('/order-inside');
+                          Get.toNamed('/order-inside', arguments: orders[i]['id']);
                         },
                         child: Container(
                           padding: EdgeInsets.all(16),
@@ -278,271 +279,273 @@ class _IndexState extends State<Index> {
             child: Container(
               padding: EdgeInsets.fromLTRB(16, 30, 16, 0),
               color: Colors.white,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('Фильтр', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text('Подбор заказов по параметрам', style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500))
-                            ],
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(
-                              Icons.close,
-                              size: 32,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('Фильтр', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text('Подбор заказов по параметрам', style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500))
+                              ],
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text('Бюджет (сум)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'От',
-                                style: TextStyle(fontWeight: FontWeight.w500),
+                            IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: Icon(
+                                Icons.close,
+                                size: 32,
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.38,
-                                // height: 30,
-                                child: TextField(
-                                    decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.all(5.0),
-                                  enabledBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: globals.red),
-                                  ),
-                                  hintText: '0',
-                                  hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                                )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'До',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.38,
-                                  // height: 30,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.all(5.0),
-                                      enabledBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: globals.red),
-                                      ),
-                                      hintText: '123 000 000',
-                                      hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text('Дата исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: 5),
-                                child: Text(
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text('Бюджет (сум)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                                   'От',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
-                              ),
-                              SizedBox(
+                                SizedBox(
                                   width: MediaQuery.of(context).size.width * 0.38,
                                   // height: 30,
                                   child: TextField(
-                                    decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.calendar_today),
-                                      contentPadding: EdgeInsets.all(18.0),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: globals.borderColor,
-                                      hintText: 'дд/мм/гг',
-                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
+                                      decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(5.0),
+                                    enabledBorder: const UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                     ),
-                                  ))
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: 5),
-                                child: Text(
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: globals.red),
+                                    ),
+                                    hintText: '0',
+                                    hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                                  )),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                                   'До',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
-                              ),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.38,
-                                  // height: 30,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.calendar_today),
-                                      contentPadding: EdgeInsets.all(18.0),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.38,
+                                    // height: 30,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets.all(5.0),
+                                        enabledBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: globals.red),
+                                        ),
+                                        hintText: '123 000 000',
+                                        hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: globals.borderColor,
-                                      hintText: 'дд/мм/гг',
-                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text('Время исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: 5),
-                                child: Text(
-                                  'От',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                    ))
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text('Дата исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  child: Text(
+                                    'От',
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.38,
-                                  // height: 30,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.schedule),
-                                      contentPadding: EdgeInsets.all(18.0),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.38,
+                                    // height: 30,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.calendar_today),
+                                        contentPadding: EdgeInsets.all(18.0),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: globals.borderColor,
+                                        hintText: 'дд/мм/гг',
+                                        hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: globals.borderColor,
-                                      hintText: '00:00',
-                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: 5),
-                                child: Text(
-                                  'До',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                    ))
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  child: Text(
+                                    'До',
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.38,
-                                  // height: 30,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.schedule),
-                                      contentPadding: EdgeInsets.all(18.0),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.38,
+                                    // height: 30,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.calendar_today),
+                                        contentPadding: EdgeInsets.all(18.0),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: globals.borderColor,
+                                        hintText: 'дд/мм/гг',
+                                        hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                    ))
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text('Время исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  child: Text(
+                                    'От',
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.38,
+                                    // height: 30,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.schedule),
+                                        contentPadding: EdgeInsets.all(18.0),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: globals.borderColor,
+                                        hintText: '00:00',
+                                        hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
                                       ),
-                                      filled: true,
-                                      fillColor: globals.borderColor,
-                                      hintText: '00:00',
-                                      hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      decoration: BoxDecoration(border: Border(top: BorderSide(color: globals.borderColor, width: 1))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.close, color: globals.darkRed),
-                          Text(
-                            'ЗАКРЫТЬ',
-                            style: TextStyle(color: globals.darkRed, fontSize: 16, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ))
-                ],
+                                    ))
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  child: Text(
+                                    'До',
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.38,
+                                    // height: 30,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.schedule),
+                                        contentPadding: EdgeInsets.all(18.0),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: globals.borderColor,
+                                        hintText: '00:00',
+                                        hintStyle: TextStyle(color: Color(0xFF9C9C9C), fontSize: 14),
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        decoration: BoxDecoration(border: Border(top: BorderSide(color: globals.borderColor, width: 1))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.close, color: globals.darkRed),
+                            Text(
+                              'ЗАКРЫТЬ',
+                              style: TextStyle(color: globals.darkRed, fontSize: 16, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ))
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,10 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
-import '../../helpers/globals.dart' as globals;
+import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/foundation.dart';
 
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:xizmat/helpers/api.dart';
+
+import '../../helpers/globals.dart' as globals;
 import '../../components/simple_app_bar.dart';
 
 class AboutOfferedOrder extends StatefulWidget {
@@ -17,15 +22,44 @@ class AboutOfferedOrder extends StatefulWidget {
 class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
   int currentIndex = 0;
   final Completer<GoogleMapController> _controller = Completer();
-  dynamic character = 1;
+  List<Marker> markers = [];
+  dynamic order = {};
 
-  static final CameraPosition _kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
+  CameraPosition kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
+
+  getOrder() async {
+    final response = await get('/services/executor/api/order/${Get.arguments}');
+
+    final GoogleMapController controller = await _controller.future;
+    dynamic newPosition = CameraPosition(
+      target: LatLng(response['gpsPointX'], response['gpsPointY']),
+      zoom: 14,
+    );
+    controller.animateCamera(CameraUpdate.newCameraPosition(newPosition));
+
+    setState(() {
+      order = response;
+      markers.add(
+        Marker(
+          markerId: MarkerId(LatLng(response['gpsPointX'], response['gpsPointY']).toString()),
+          position: LatLng(response['gpsPointX'], response['gpsPointY']),
+        ),
+      );
+      kGooglePlex = CameraPosition(target: LatLng(response['gpsPointX'], response['gpsPointY']), zoom: 13.0);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOrder();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: SimpleAppBar(
-          title: '№ 345 666',
+          title: '№ ${order['id']}',
           appBar: AppBar(),
         ),
         body: Stack(
@@ -41,26 +75,65 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                     Container(
                       margin: EdgeInsets.only(top: 15, bottom: 5),
                       child: Text(
-                        'Занятия по высшей математике',
+                        '${order['categoryChildName']}',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 15),
-                        child: Text('бюджет:400 000 сум', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
+                      margin: EdgeInsets.only(bottom: 15),
+                      child: Text(
+                        'бюджет: ${order['orderAmount'] ?? '0'} сум',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: globals.lightGrey,
+                        ),
+                      ),
+                    ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: Text('Дата исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        'Дата исполнения',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: globals.lightGrey,
+                        ),
+                      ),
+                    ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        child: Text('09.20.2021, 13:00', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF444444)))),
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        '${order['executionDate']}, ${order['executionTime']}',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF444444),
+                        ),
+                      ),
+                    ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: Text('Место оказания', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        'Место оказания услуги',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: globals.lightGrey,
+                        ),
+                      ),
+                    ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        child: Text('Ташкент, Яккасарайский район',
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF444444)))),
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        '${order['address']}',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF444444),
+                        ),
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(bottom: 20),
                       child: Stack(
@@ -71,37 +144,49 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                               myLocationButtonEnabled: true,
                               zoomControlsEnabled: false,
                               mapType: MapType.normal,
-                              initialCameraPosition: _kGooglePlex,
+                              initialCameraPosition: kGooglePlex,
                               onMapCreated: (GoogleMapController controller) {
                                 _controller.complete(controller);
+                              },
+                              scrollGesturesEnabled: true,
+                              markers: Set<Marker>.of(markers),
+                              gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+                                Factory<OneSequenceGestureRecognizer>(
+                                  () => EagerGestureRecognizer(),
+                                ),
                               },
                             ),
                           ),
                           Positioned(
-                              right: 16,
-                              bottom: 16,
-                              child: GestureDetector(
-                                onTap: () {
-                                  // Get.toNamed('/google-map');
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(color: globals.white, borderRadius: BorderRadius.circular(50.0)),
-                                  child: Image.asset(
-                                    'images/send.png',
-                                  ),
-                                  // child: Icon(
-                                  //   Icons.send,
-                                  //   size: 20,
-                                  // ),
+                            right: 16,
+                            bottom: 16,
+                            child: GestureDetector(
+                              onTap: () {
+                                // Get.toNamed('/google-map');
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(color: globals.white, borderRadius: BorderRadius.circular(50.0)),
+                                child: Image.asset(
+                                  'images/send.png',
                                 ),
-                              ))
+                                // child: Icon(
+                                //   Icons.send,
+                                //   size: 20,
+                                // ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 12),
-                        child: Text('Заказчик', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
+                      margin: EdgeInsets.only(bottom: 12),
+                      child: Text(
+                        'Заказчик',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey),
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(bottom: 15),
                       child: Row(
@@ -110,105 +195,93 @@ class _AboutOfferedOrderState extends State<AboutOfferedOrder> {
                             margin: EdgeInsets.only(right: 10),
                             child: Image.asset('images/circle_avatar.png'),
                           ),
-                          Text('Абдувасит Абдуманнобзода', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
+                          Text(
+                            'Абдувасит Абдуманнобзода',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          )
                         ],
                       ),
                     ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 12),
-                        child: Text('Примечание', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey))),
+                      margin: EdgeInsets.only(bottom: 12),
+                      child: Text(
+                        'Примечание',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey),
+                      ),
+                    ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        child: Text(
-                            'Нужно провести 10 уроков по математике так, чтобы мой сын гуманитарий - лоботряс поступил в нефтехазовый институт.',
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500, color: Color(0xFF444444)))),
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        '${order['note']}',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF444444),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
             Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    height: 110,
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-                    decoration: BoxDecoration(
-                      color: globals.white,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
-                      boxShadow: const [
-                        BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              // margin: EdgeInsets.only(right: 10),
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                                  elevation: 0,
-                                  primary: globals.red,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                child: Text(
-                                  'Принять заказ',
-                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.white),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed('/chat');
-                              },
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                                    elevation: 0,
-                                    primary: globals.white,
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(color: globals.black),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Написать',
-                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                decoration: BoxDecoration(
+                  color: globals.white,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+                  boxShadow: const [
+                    BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      // margin: EdgeInsets.only(right: 10),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                          elevation: 0,
+                          primary: globals.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 5),
-                              child: Icon(
-                                Icons.close,
-                                color: Color(0xFF707070),
-                              ),
-                            ),
-                            Text(
-                              'Отказаться от заказа',
-                              style: TextStyle(color: Color(0xFF707070), fontSize: 16, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        )
-                      ],
-                    )))
+                        child: Text(
+                          'Откликнуться',
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.white),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                          elevation: 0,
+                          primary: globals.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: globals.black),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        child: Text(
+                          'Написать',
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         )
         // floatingActionButton: Container(

@@ -135,6 +135,10 @@ class _ServiceAreaState extends State<ServiceArea> {
         child: widgets.Button(
           text: 'Применить',
           onClick: () {
+            if (Get.arguments == 1) {
+              Get.offAllNamed('/', arguments: 2);
+              return;
+            }
             Get.offAllNamed('/');
             // changeDeparture();
           },

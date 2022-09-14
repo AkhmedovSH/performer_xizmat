@@ -25,7 +25,7 @@ class _ChooseRegionsState extends State<ChooseRegions> {
     sendData['cityId'] = selectedButton;
     final response = await put('/services/executor/api/update-executor', sendData);
     if (response != null) {
-      Get.toNamed('/choose-cities', arguments: sendData['cityId']);
+      Get.toNamed('/choose-cities', arguments: {'id': sendData['cityId'], 'value': Get.arguments});
     }
     return false;
   }

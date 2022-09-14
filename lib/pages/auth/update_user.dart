@@ -20,17 +20,15 @@ class _UpdateUserState extends State<UpdateUser> {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
-    "name": "Alisher",
-    "phone": "998998325455",
+    "name": "",
     "gender": 1,
     "regionId": '0',
     "cityId": '0',
-    "imageUrl": "imageUrl",
-    "birthDate": "2022-01-01"
+    "imageUrl": "",
+    "birthDate": "",
   };
   dynamic data = {
     "nameController": TextEditingController(),
-    "phoneController": TextEditingController(text: '+998 '),
     'birthDateController': TextEditingController(),
     'genderController': TextEditingController(),
   };
@@ -122,18 +120,16 @@ class _UpdateUserState extends State<UpdateUser> {
 
   getUser() async {
     final response = await get('/services/executor/api/get-info');
-    if (response['regionId'] != null && response['regionId'] != '0' && response['regionId'] != 0) {
-      getRegions(id: response['regionId']);
-    } else {
-      getRegions();
-    }
-    if (response['cityId'] != null && response['cityId'] != '0' && response['cityId'] != 0) {
-      getCities(response['regionId'], cityid: response['cityId']);
-    }
+    // if (response['regionId'] != null && response['regionId'] != '0' && response['regionId'] != 0) {
+    //   getRegions(id: response['regionId']);
+    // } else {
+    //   getRegions();
+    // }
+    // if (response['cityId'] != null && response['cityId'] != '0' && response['cityId'] != 0) {
+    //   getCities(response['regionId'], cityid: response['cityId']);
+    // }
     setState(() {
       data['nameController'].text = response['name'].toString() != 'null' ? response['name'].toString() : '';
-      data['phoneController'].text =
-          response['phone'].toString() != 'null' ? maskFormatter.maskText(response['phone'].substring(3, response['phone'].length)) : '';
       data['birthDateController'].text = response['birthDate'].toString() != 'null' ? response['birthDate'].toString() : '';
       data['genderController'].text = response['gender'].toString() != 'null'
           ? response['gender'].toString() == '0'
@@ -217,59 +213,6 @@ class _UpdateUserState extends State<UpdateUser> {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   margin: const EdgeInsets.only(bottom: 20),
-                      //   child: Theme(
-                      //     data: Theme.of(context).copyWith(
-                      //       colorScheme: ThemeData().colorScheme.copyWith(
-                      //             primary: red,
-                      //           ),
-                      //     ),
-                      //     child: TextFormField(
-                      //       inputFormatters: [maskFormatter],
-                      //       validator: (value) {
-                      //         if (value == null || value.isEmpty) {
-                      //           return 'required_field'.tr;
-                      //         }
-                      //         return null;
-                      //       },
-                      //       controller: data['phoneController'],
-                      //       onChanged: (value) {
-                      //         if (value == '') {
-                      //           setState(() {
-                      //             data['phoneController'].text = '+998 ';
-                      //             data['phoneController'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
-                      //           });
-                      //         }
-                      //         setState(() {
-                      //           sendData['phone'] = value;
-                      //         });
-                      //       },
-                      //       keyboardType: TextInputType.number,
-                      //       decoration: InputDecoration(
-                      //         prefixIcon: IconButton(
-                      //           onPressed: () {},
-                      //           icon: const Icon(
-                      //             Icons.phone_iphone,
-                      //           ),
-                      //         ),
-                      //         contentPadding: const EdgeInsets.all(18.0),
-                      //         focusColor: red,
-                      //         filled: true,
-                      //         fillColor: Colors.transparent,
-                      //         enabledBorder: const UnderlineInputBorder(
-                      //           borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                      //         ),
-                      //         focusedBorder: UnderlineInputBorder(
-                      //           borderSide: BorderSide(color: red),
-                      //         ),
-                      //         labelText: 'telephone_number'.tr + '(9* *** ** **)',
-                      //         labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                      //       ),
-                      //       style: const TextStyle(color: Color(0xFF9C9C9C)),
-                      //     ),
-                      //   ),
-                      // ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 25),
                         // height: 45,

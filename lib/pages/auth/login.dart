@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../helpers/globals.dart';
 import '../../helpers/api.dart';
@@ -25,6 +26,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  AnimationController? animationController;
   dynamic sendData = {
     'username': '+998 ', // 998 998325455
     'password': '', // 112233
@@ -36,6 +38,7 @@ class _LoginState extends State<Login> {
     'isRemember': false,
   };
   bool showPassword = true;
+  bool loading = true;
 
   login() async {
     final prefs = await SharedPreferences.getInstance();
@@ -85,14 +88,6 @@ class _LoginState extends State<Login> {
         if (user['imageUrl'] == null) {
           Get.toNamed('/upload-photo');
           return;
-        }
-        if (user['passImageUrlList'].length == 0) {
-          Get.toNamed('/verification');
-          return;
-        }
-        if (user['passImageUrlList'].length == 0) {
-          Get.toNamed('/verification');
-          return;
         } else {
           Get.offAllNamed('/');
         }
@@ -103,7 +98,7 @@ class _LoginState extends State<Login> {
   }
 
   checkIsRemember() async {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance(); 
     if (prefs.getString('user') != null) {
       final user = jsonDecode(prefs.getString('user')!);
       if (user['isRemember'] != null) {

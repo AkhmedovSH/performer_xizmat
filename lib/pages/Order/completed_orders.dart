@@ -44,7 +44,7 @@ class _CompletedOrdersState extends State<CompletedOrders> {
           style: TextStyle(color: globals.black),
         ),
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.black,
+          statusBarColor: Colors.white,
           statusBarBrightness: Brightness.dark,
           statusBarIconBrightness: Brightness.dark,
         ),
@@ -73,7 +73,7 @@ class _CompletedOrdersState extends State<CompletedOrders> {
               for (var i = 0; i < orders.length; i++)
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed('/about-completed-order');
+                    Get.toNamed('/about-completed-order', arguments: orders[i]['id']);
                   },
                   child: Container(
                     padding: EdgeInsets.all(16),

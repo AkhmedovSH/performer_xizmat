@@ -44,7 +44,7 @@ class _VerificationState extends State<Verification> {
       final responsePut = await put('/services/executor/api/update-executor', sendData);
       if (responsePut != null) {
         getUser();
-        // Get.offAllNamed('/', arguments: 2);
+        Get.offAllNamed('/', arguments: 2);
       }
     } on PlatformException catch (e) {
       print('ERROR: $e');
