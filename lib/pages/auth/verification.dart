@@ -44,7 +44,6 @@ class _VerificationState extends State<Verification> {
       final responsePut = await put('/services/executor/api/update-executor', sendData);
       if (responsePut != null) {
         getUser();
-        Get.offAllNamed('/', arguments: 2);
       }
     } on PlatformException catch (e) {
       print('ERROR: $e');
@@ -210,6 +209,10 @@ class _VerificationState extends State<Verification> {
         child: widgets.Button(
           text: 'Отправить',
           onClick: () {
+            if (Get.arguments == 1) {
+              Get.back();
+              return;
+            }
             if (user['passImageUrlList'].length > 0) {
               Get.toNamed('/choose-regions');
             } else {

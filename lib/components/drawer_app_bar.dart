@@ -129,7 +129,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                 buildListTile(
                   context,
                   'Предложенные заказы',
-                  Icons.category,
+                  Icons.list_alt,
                   '/proposed-orders',
                 ),
                 buildListTile(
@@ -141,7 +141,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                 buildListTile(
                   context,
                   'Завершенные заказы',
-                  Icons.support_agent,
+                  Icons.list_alt,
                   '/completed-orders',
                 ),
                 buildListTile(
@@ -153,7 +153,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                 buildListTile(
                   context,
                   'Поддержка',
-                  Icons.settings_suggest,
+                  Icons.support_agent,
                   '/support',
                 ),
               ],
@@ -192,7 +192,8 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
           if (routeName == '/orders') Navigator.pop(context),
           if (routeName == '/completed-orders') Get.toNamed('/completed-orders'),
           if (routeName == '/order-by-manager') Get.toNamed('/order-by-manager'),
-          if (routeName == '/support') Get.offAllNamed('/', arguments: 3),
+          if (routeName == '/support') Get.offAllNamed('/', arguments: 4),
+          if (routeName == '/balance') Get.offAllNamed('/', arguments: 2),
           // Navigator.pop(context),
         },
       ),

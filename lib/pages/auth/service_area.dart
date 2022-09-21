@@ -136,7 +136,7 @@ class _ServiceAreaState extends State<ServiceArea> {
           text: 'Применить',
           onClick: () {
             if (Get.arguments == 1) {
-              Get.offAllNamed('/', arguments: 2);
+              Get.offAllNamed('/', arguments: 3);
               return;
             }
             Get.offAllNamed('/');

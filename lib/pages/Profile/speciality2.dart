@@ -75,15 +75,6 @@ class _Speciality2State extends State<Speciality2> {
           ),
         ),
       ),
-      floatingActionButton: Container(
-        margin: EdgeInsets.only(left: 32),
-        child: widgets.Button(
-          text: 'Добавить категорию',
-          onClick: () {
-            Get.toNamed('/add-category');
-          },
-        ),
-      ),
     );
   }
 }

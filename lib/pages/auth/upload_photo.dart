@@ -146,6 +146,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
         final responsePut = await put('/services/executor/api/update-executor', user);
         if (responsePut != null) {
           getUser();
+          Get.back();
         }
       }
     } on PlatformException catch (e) {

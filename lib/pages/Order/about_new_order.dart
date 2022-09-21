@@ -27,8 +27,17 @@ class _AboutNewOrderState extends State<AboutNewOrder> {
 
   CameraPosition kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
 
+  orderCompleted() async {
+    final response = await post('/services/executor/api/order-completed', {
+      "id": Get.arguments['id'],
+    });
+    if (response != null) {
+      Get.back(result: 2);
+    }
+  }
+
   getOrder() async {
-    final response = await get('/services/executor/api/order/${Get.arguments}');
+    final response = await get('/services/executor/api/order/${Get.arguments['id']}');
 
     final GoogleMapController controller = await _controller.future;
     dynamic newPosition = CameraPosition(
@@ -45,7 +54,10 @@ class _AboutNewOrderState extends State<AboutNewOrder> {
           position: LatLng(response['gpsPointX'], response['gpsPointY']),
         ),
       );
-      kGooglePlex = CameraPosition(target: LatLng(response['gpsPointX'], response['gpsPointY']), zoom: 13.0);
+      kGooglePlex = CameraPosition(
+        target: LatLng(response['gpsPointX'], response['gpsPointY']),
+        zoom: 13.0,
+      );
     });
   }
 
@@ -247,64 +259,70 @@ class _AboutNewOrderState extends State<AboutNewOrder> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-                decoration: BoxDecoration(
-                  color: globals.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
-                  boxShadow: const [
-                    BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      // margin: EdgeInsets.only(right: 10),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                          elevation: 0,
-                          primary: globals.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
+            Get.arguments['value'] != 2
+                ? Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                      decoration: BoxDecoration(
+                        color: globals.white,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            // margin: EdgeInsets.only(right: 10),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (Get.arguments['value'] == 1) {
+                                  orderCompleted();
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                                elevation: 0,
+                                backgroundColor: globals.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                              child: Text(
+                                Get.arguments['value'] == 1 ? 'Завершить' : 'Откликнуться',
+                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.white),
+                              ),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          'Откликнуться',
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.white),
-                        ),
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width * 0.4,
+                          //   child: ElevatedButton(
+                          //     onPressed: () {},
+                          //     style: ElevatedButton.styleFrom(
+                          //       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                          //       elevation: 0,
+                          //       backgroundColor: globals.white,
+                          //       shape: RoundedRectangleBorder(
+                          //         side: BorderSide(color: globals.black),
+                          //         borderRadius: BorderRadius.circular(4),
+                          //       ),
+                          //     ),
+                          //     child: Text(
+                          //       'Написать',
+                          //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
+                          //     ),
+                          //   ),
+                          // )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                          elevation: 0,
-                          primary: globals.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: globals.black),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                        child: Text(
-                          'Написать',
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
+                  )
+                : Container()
           ],
         )
         // floatingActionButton: Container(

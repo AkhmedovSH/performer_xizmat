@@ -1,19 +1,13 @@
-import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:xizmat/helpers/api.dart';
 import 'package:xizmat/helpers/globals.dart';
-
-import 'package:xizmat/helpers/location_notification_service.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -40,9 +34,8 @@ class _SplashState extends State<Splash> {
     // setState(() {
     //   sendData['username'] = '998' + maskFormatter.getUnmaskedText();
     // });
-   
-      Get.offAllNamed('/login');
-    
+
+    Get.offAllNamed('/login');
   }
 
   void checkVersion() async {

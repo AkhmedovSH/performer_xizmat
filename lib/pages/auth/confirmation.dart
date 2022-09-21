@@ -40,23 +40,7 @@ class _ConfirmationState extends State<Confirmation> {
     });
     final response = await guestPost('/services/executor/api/activate-executor', sendData);
     if (response != null) {
-      final user = {
-        'username': sendData['phone'], // 998 998325455
-        'password': sendData['password'], // 112233
-        'isRemember': false,
-      };
-      final login = await guestPost('/auth/login', user);
-      prefs.setString('access_token', login['access_token'].toString());
-      prefs.setString('user', jsonEncode(user));
-      if (response['message'] == 'error.activation.code') {
-        showErrorToast('Введен неправильный код');
-      }
-      if (response['message'] == 'error.already.registered') {
-        showErrorToast('Телефон уже используется');
-      }
-      if (response['success']) {
-        Get.toNamed('/login');
-      }
+      Get.toNamed('/login');
     }
   }
 

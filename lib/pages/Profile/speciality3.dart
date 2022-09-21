@@ -44,7 +44,7 @@ class _Speciality3State extends State<Speciality3> {
         return;
       }
       if (Get.arguments['value'] == 2) {
-        Get.offAllNamed('/', arguments: 2);
+        Get.offAllNamed('/', arguments: 3);
         return;
       }
       Get.offAllNamed('/');
@@ -61,6 +61,20 @@ class _Speciality3State extends State<Speciality3> {
         item = response;
         checkBoxList = response['optionList'];
       });
+    }
+    getCurrentCategories();
+  }
+
+  getCurrentCategories() async {
+    final response = await get('/services/executor/api/executor-step/2');
+    for (var i = 0; i < checkBoxList.length; i++) {
+      for (var k = 0; k < response.length; k++) {
+        if (checkBoxList[i]['id'] == response[k]['optionId']) {
+          setState(() {
+            checkBoxList[i]['isChecked'] = true;
+          });
+        }
+      }
     }
   }
 

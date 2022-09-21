@@ -83,15 +83,15 @@ class _IndexState extends State<Index> {
           style: TextStyle(color: globals.black),
         ),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            widget.openDrawerBar!();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: globals.black,
-          ),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     widget.openDrawerBar!();
+        //   },
+        //   icon: Icon(
+        //     Icons.menu,
+        //     color: globals.black,
+        //   ),
+        // ),
         actions: [
           Container(),
         ],
@@ -104,7 +104,7 @@ class _IndexState extends State<Index> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
                     margin: EdgeInsets.only(right: 25),
@@ -531,7 +531,11 @@ class _IndexState extends State<Index> {
                         ),
                       ],
                     ),
-                    Container(
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         decoration: BoxDecoration(border: Border(top: BorderSide(color: globals.borderColor, width: 1))),
                         child: Row(
@@ -543,7 +547,9 @@ class _IndexState extends State<Index> {
                               style: TextStyle(color: globals.darkRed, fontSize: 16, fontWeight: FontWeight.bold),
                             )
                           ],
-                        ))
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

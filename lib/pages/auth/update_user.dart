@@ -72,9 +72,6 @@ class _UpdateUserState extends State<UpdateUser> {
   }
 
   updateUser() async {
-    setState(() {
-      sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
-    });
     print(sendData);
     final response = await put('/services/executor/api/update-executor', sendData);
     print(response);

@@ -33,6 +33,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
       XFile? img = await ImagePicker().pickImage(source: source);
       if (img == null) return;
       final response = await uploadImage('/services/executor/api/upload/image', File(img.path));
+      print(response);
       String jsonsDataString = response.toString();
       final jsonData = jsonDecode(jsonsDataString);
       final user = await get('/services/executor/api/get-info');
@@ -82,7 +83,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
           items = response['galleryUrlList'];
         }
         if (from == 2) {
-          items = response['galleryUrlList'];
+          items = response['certUrlList'];
         }
       });
     }
@@ -92,6 +93,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
   void initState() {
     super.initState();
     getUser();
+    print(Get.arguments);
     setState(() {
       from = Get.arguments;
     });

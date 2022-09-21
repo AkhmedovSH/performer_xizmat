@@ -36,6 +36,9 @@ class _ResetPasswordInitState extends State<ResetPasswordInit> with TickerProvid
   bool loading = false;
 
   resetPasswordInit() async {
+    setState(() {
+      loading = true;
+    });
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       final user = jsonDecode(prefs.getString('user')!);
@@ -49,12 +52,15 @@ class _ResetPasswordInitState extends State<ResetPasswordInit> with TickerProvid
     setState(() {
       sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
     });
-    final response = await guestPost('/services/uaa/api/account/reset-password-loyalty/init', sendData);
+    final response = await guestPost('/services/uaa/api/account/reset-password/init', sendData);
     if (response != null) {
       if (response['success']) {
         Get.toNamed('/reset-password-finish');
       }
     }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override

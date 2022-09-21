@@ -114,8 +114,14 @@ class _OrdersState extends State<Orders> {
                 children: [
                   for (var i = 0; i < orders.length; i++)
                     GestureDetector(
-                      onTap: () {
-                        Get.toNamed('/order-inside', arguments: orders[i]['id']);
+                      onTap: () async {
+                        final result = await Get.toNamed('/order-inside', arguments: {
+                          'id': orders[i]['id'],
+                          'value': currentIndex,
+                        });
+                        if (result != null) {
+                          changeTab(result);
+                        }
                       },
                       child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),

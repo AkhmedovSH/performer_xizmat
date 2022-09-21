@@ -126,9 +126,9 @@ uploadImage(url, File file) async {
 
 statuscheker(e) async {
   print(e.response?.statusCode);
-  String jsonsDataString = e.response.toString();
-  final jsonData = jsonDecode(jsonsDataString);
   if (e.response?.statusCode == 400) {
+    String jsonsDataString = e.response.toString();
+    final jsonData = jsonDecode(jsonsDataString);
     showErrorToast(jsonData['message'].toString().tr);
   }
   if (e.response?.statusCode == 401) {

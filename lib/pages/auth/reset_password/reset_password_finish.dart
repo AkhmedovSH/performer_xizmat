@@ -65,22 +65,24 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
       children: [
         Scaffold(
           appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarIconBrightness: Brightness.dark,
-                statusBarColor: white,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: white,
+            ),
+            backgroundColor: white,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: black,
               ),
-              backgroundColor: white,
-              elevation: 0,
-              leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: black,
-                  ))),
+            ),
+          ),
           body: SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -91,14 +93,14 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Imtihon',
+                        '',
                         style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(bottom: 20),
                       child: Text(
-                        'Raqamingizga yuborgan kodni yozing',
+                        'Raqamingizga yuborilgan kodni yozing',
                         style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -131,23 +133,22 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                 },
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                  prefixIcon: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.phone_iphone,
-                                      )),
-                                  contentPadding: const EdgeInsets.all(18.0),
-                                  focusColor: red,
-                                  filled: true,
-                                  fillColor: Colors.transparent,
                                   enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: red),
+                                  focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                   ),
-                                  labelText: 'telephone_number'.tr + '(9* *** ** **)',
-                                  labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                                  focusedErrorBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  errorBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  filled: true,
+                                  fillColor: white,
+                                  contentPadding: const EdgeInsets.all(16),
+                                  hintText: 'SMS kodni yozing',
                                 ),
                                 style: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
@@ -174,7 +175,9 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                   });
                                 },
                                 obscureText: showPassword,
-                                scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom / 1.5),
+                                scrollPadding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).viewInsets.bottom / 1.5,
+                                ),
                                 decoration: InputDecoration(
                                   prefixIcon: IconButton(
                                     onPressed: () {},
@@ -191,7 +194,6 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                           },
                                           icon: const Icon(
                                             Icons.visibility_off,
-                                            // color: red,
                                           ),
                                         )
                                       : IconButton(
@@ -202,7 +204,6 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                           },
                                           icon: const Icon(
                                             Icons.visibility,
-                                            // color: red,
                                           ),
                                         ),
                                   contentPadding: const EdgeInsets.all(18.0),
@@ -215,9 +216,13 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: red),
                                   ),
-                                  labelText: 'password'.tr,
-                                  labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                                  focusedErrorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.red[700]!),
+                                  ),
+                                  hintText: 'password'.tr,
+                                  hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                                 ),
+                                style: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
                             ),
                           ),

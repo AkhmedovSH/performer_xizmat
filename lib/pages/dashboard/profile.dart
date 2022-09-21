@@ -311,13 +311,16 @@ class _ProfileState extends State<Profile> {
       dynamic sendData = {};
       setState(() {
         sendData = user;
-        sendData['passImageUrlList'].add(
-          {'fileUrl': jsonData['url']},
-        );
+        if (response != null) {
+          sendData['imageUrl'] = jsonData['url'];
+        }
+        // sendData['passImageUrlList'].add(
+        //   {'fileUrl': jsonData['url']},
+        // );
       });
       final responsePut = await put('/services/executor/api/update-executor', sendData);
       if (responsePut != null) {
-        // Get.offAllNamed('/', arguments: 2);
+        getUser();
       }
       setState(() {
         // imageUrl = jsonData['url'];

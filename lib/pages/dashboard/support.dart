@@ -74,34 +74,33 @@ class _SupportState extends State<Support> {
           ),
           Container(
             margin: EdgeInsets.fromLTRB(16, 0, 16, 20),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                elevation: 0,
-                primary: white,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: black),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.textsms_outlined,
-                    color: black,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Онлайн чат',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: black),
-                  )
-                ],
-              ),
-            ),
+            // child: ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     padding: EdgeInsets.symmetric(vertical: 16),
+            //     elevation: 0,
+            //     shape: RoundedRectangleBorder(
+            //       side: BorderSide(color: black),
+            //       borderRadius: BorderRadius.circular(12),
+            //     ),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Icon(
+            //         Icons.textsms_outlined,
+            //         color: black,
+            //       ),
+            //       SizedBox(
+            //         width: 10,
+            //       ),
+            //       Text(
+            //         'Онлайн чат',
+            //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: black),
+            //       )
+            //     ],
+            //   ),
+            // ),
           ),
         ],
       ),
