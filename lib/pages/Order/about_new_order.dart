@@ -288,7 +288,7 @@ class _AboutNewOrderState extends State<AboutNewOrder> {
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                                 elevation: 0,
-                                backgroundColor: globals.red,
+                                primary: globals.red,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4),
                                 ),
