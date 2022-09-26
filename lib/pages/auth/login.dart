@@ -67,13 +67,13 @@ class _LoginState extends State<Login> {
     if (response != null) {
       prefs.setString('access_token', response['access_token'].toString());
       prefs.setString('user', jsonEncode(sendData));
-      var account = await get('/services/uaa/api/account');
-      var checkAccess = false;
-      for (var i = 0; i < account['authorities'].length; i++) {
-        if (account['authorities'][i] == 'ROLE_EXECUTOR') {
-          checkAccess = true;
-        }
-      }
+      // var account = await get('/services/uaa/api/account');
+      var checkAccess = true;
+      // for (var i = 0; i < account['authorities'].length; i++) {
+      //   if (account['authorities'][i] == 'ROLE_EXECUTOR') {
+      //     checkAccess = true;
+      //   }
+      // }
       print(checkAccess);
       if (checkAccess) {
         LocalNotificationService.initialize(context);

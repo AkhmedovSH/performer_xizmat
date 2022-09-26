@@ -19,7 +19,7 @@ class _SupportState extends State<Support> {
   call() async {
     final Uri launchUri = Uri(
       scheme: 'tel',
-      path: '+998909889099',
+      path: '+998555000089',
     );
     await launchUrl(launchUri);
   }
@@ -39,7 +39,7 @@ class _SupportState extends State<Support> {
           Container(
             margin: EdgeInsets.only(bottom: 25),
             child: Text(
-              'Телефон: +998 90 988 90 99',
+              'Телефон: +998 55 500 00 89',
               style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),

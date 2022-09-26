@@ -82,7 +82,7 @@ class _SplashState extends State<Splash> {
     // bool lightMode =
     //     MediaQuery.of(context).platformBrightness == Brightness.light;
     return Scaffold(
-      backgroundColor: red,
+      backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,

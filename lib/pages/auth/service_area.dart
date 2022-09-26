@@ -63,17 +63,24 @@ class _ServiceAreaState extends State<ServiceArea> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 13),
-                          child: Icon(Icons.drive_eta),
-                        ),
-                        Text(
-                          'Выезжаю к клиенту',
-                          style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.w500),
-                        ),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isChecked = !isChecked;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 13),
+                            child: Icon(Icons.drive_eta),
+                          ),
+                          Text(
+                            'Выезжаю к клиенту',
+                            style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
                     ),
                     Transform.scale(
                       scale: 1.2,

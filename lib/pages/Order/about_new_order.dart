@@ -40,24 +40,28 @@ class _AboutNewOrderState extends State<AboutNewOrder> {
     final response = await get('/services/executor/api/order/${Get.arguments['id']}');
 
     final GoogleMapController controller = await _controller.future;
-    dynamic newPosition = CameraPosition(
-      target: LatLng(response['gpsPointX'], response['gpsPointY']),
-      zoom: 14,
-    );
-    controller.animateCamera(CameraUpdate.newCameraPosition(newPosition));
+    if (response['gpsPointX'] != null && response['gpsPointY'] != null) {
+      dynamic newPosition = CameraPosition(
+        target: LatLng(response['gpsPointX'], response['gpsPointY']),
+        zoom: 14,
+      );
+      controller.animateCamera(CameraUpdate.newCameraPosition(newPosition));
+    }
 
     setState(() {
       order = response;
-      markers.add(
-        Marker(
-          markerId: MarkerId(LatLng(response['gpsPointX'], response['gpsPointY']).toString()),
-          position: LatLng(response['gpsPointX'], response['gpsPointY']),
-        ),
-      );
-      kGooglePlex = CameraPosition(
-        target: LatLng(response['gpsPointX'], response['gpsPointY']),
-        zoom: 13.0,
-      );
+      if (response['gpsPointX'] != null && response['gpsPointY'] != null) {
+        markers.add(
+          Marker(
+            markerId: MarkerId(LatLng(response['gpsPointX'], response['gpsPointY']).toString()),
+            position: LatLng(response['gpsPointX'], response['gpsPointY']),
+          ),
+        );
+        kGooglePlex = CameraPosition(
+          target: LatLng(response['gpsPointX'], response['gpsPointY']),
+          zoom: 13.0,
+        );
+      }
     });
   }
 
@@ -231,7 +235,7 @@ class _AboutNewOrderState extends State<AboutNewOrder> {
                                   ),
                           ),
                           Text(
-                            '${order['username'] ?? ''}',
+                            '${order['userName'] ?? ''}',
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           )
                         ],
@@ -259,7 +263,7 @@ class _AboutNewOrderState extends State<AboutNewOrder> {
                 ),
               ),
             ),
-            Get.arguments['value'] != 2
+            Get.arguments['value'] != null && Get.arguments['value'] != 2
                 ? Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
