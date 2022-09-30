@@ -17,7 +17,7 @@ class Register extends StatefulWidget {
   _RegisterState createState() => _RegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterState extends State<Register> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   AnimationController? animationController;
@@ -71,6 +71,20 @@ class _RegisterState extends State<Register> {
     setState(() {
       loading = false;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
+    });
+  }
+
+  @override
+  void dispose() {
+    animationController!.dispose();
+    super.dispose();
   }
 
   @override

@@ -23,7 +23,7 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(
     mask: '+998 ## ### ## ##',
@@ -67,13 +67,13 @@ class _LoginState extends State<Login> {
     if (response != null) {
       prefs.setString('access_token', response['access_token'].toString());
       prefs.setString('user', jsonEncode(sendData));
-      // var account = await get('/services/uaa/api/account');
-      var checkAccess = true;
-      // for (var i = 0; i < account['authorities'].length; i++) {
-      //   if (account['authorities'][i] == 'ROLE_EXECUTOR') {
-      //     checkAccess = true;
-      //   }
-      // }
+      var account = await get('/services/uaa/api/account');
+      var checkAccess = false;
+      for (var i = 0; i < account['authorities'].length; i++) {
+        if (account['authorities'][i] == 'ROLE_EXECUTOR') {
+          checkAccess = true;
+        }
+      }
       print(checkAccess);
       if (checkAccess) {
         LocalNotificationService.initialize(context);
@@ -94,15 +94,17 @@ class _LoginState extends State<Login> {
         setState(() {
           loading = false;
         });
-        if (user['name'] == null || user['name'] == '') {
-          Get.toNamed('/update-user');
-          return;
-        }
-        if (user['imageUrl'] == null) {
-          Get.toNamed('/upload-photo');
-          return;
-        } else {
-          Get.offAllNamed('/');
+        if (user != null) {
+          if (user['name'] == null || user['name'] == '') {
+            Get.toNamed('/update-user');
+            return;
+          }
+          if (user['imageUrl'] == null) {
+            Get.toNamed('/upload-photo');
+            return;
+          } else {
+            Get.offAllNamed('/');
+          }
         }
       } else {
         setState(() {
@@ -135,6 +137,15 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     checkIsRemember();
+    setState(() {
+      animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
+    });
+  }
+
+  @override
+  void dispose() {
+    animationController!.dispose();
+    super.dispose();
   }
 
   @override
