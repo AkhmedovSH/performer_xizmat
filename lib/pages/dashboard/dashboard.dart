@@ -81,12 +81,27 @@ class _DashboardState extends State<Dashboard> {
               backgroundColor: white,
               selectedItemColor: black,
               selectedIconTheme: IconThemeData(color: black),
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Активные'),
-                BottomNavigationBarItem(icon: Icon(Icons.list_alt, color: Color(0xFF828282)), label: 'Заказы'),
-                BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet_rounded, color: Color(0xFF828282)), label: 'Баланс'),
-                BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFF828282)), label: 'Профиль'),
-                BottomNavigationBarItem(icon: Icon(Icons.headset_mic, color: Color(0xFF828282)), label: 'Поддержка'),
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list_alt),
+                  label: 'active'.tr,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list_alt, color: Color(0xFF828282)),
+                  label: 'orders'.tr,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_balance_wallet_rounded, color: Color(0xFF828282)),
+                  label: 'balance'.tr,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person, color: Color(0xFF828282)),
+                  label: 'profile'.tr,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.headset_mic, color: Color(0xFF828282)),
+                  label: 'support'.tr,
+                ),
               ]),
         ),
       ),

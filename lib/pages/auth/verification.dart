@@ -78,7 +78,7 @@ class _VerificationState extends State<Verification> {
     return Scaffold(
       appBar: SimpleAppBar(
         appBar: AppBar(),
-        title: 'Верификация',
+        title: 'verification'.tr,
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 16),
@@ -89,7 +89,7 @@ class _VerificationState extends State<Verification> {
             Container(
               margin: EdgeInsets.only(bottom: 35),
               child: Text(
-                'Для полноценного использования приложения необходимо верифицировать вашу личность',
+                'to_fully_use_the_application_you_need_to_verify_your_identity'.tr,
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
@@ -161,7 +161,7 @@ class _VerificationState extends State<Verification> {
                       ),
                     ),
                     Text(
-                      'Прикрепить фото паспорта',
+                      'attach_passport_photo'.tr,
                       style: TextStyle(
                         color: red,
                         fontSize: 17,
@@ -207,7 +207,7 @@ class _VerificationState extends State<Verification> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: widgets.Button(
-          text: 'Отправить',
+          text: 'send'.tr,
           onClick: () {
             if (Get.arguments == 1) {
               Get.back();
@@ -216,7 +216,7 @@ class _VerificationState extends State<Verification> {
             if (user['passImageUrlList'].length > 0) {
               Get.toNamed('/choose-regions');
             } else {
-              showErrorToast('Загрузите одно фото');
+              showErrorToast('upload_one_photo'.tr);
             }
             // Get.toNamed('/add-category');
           },
@@ -258,7 +258,7 @@ class _VerificationState extends State<Verification> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Добавить из галереи'.tr,
+                      'add_from_gallery'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -295,7 +295,7 @@ class _VerificationState extends State<Verification> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Сделать снимок'.tr,
+                      'take_photo'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -324,7 +324,7 @@ class _VerificationState extends State<Verification> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Отмена'.tr,
+                      'cancel'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,

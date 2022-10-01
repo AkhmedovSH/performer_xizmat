@@ -111,14 +111,14 @@ class _ResetPasswordInitState extends State<ResetPasswordInit> with TickerProvid
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Parolni esdan chiqardingizmi' '?',
+                         'have_you_forgotten_your_password'.tr + '?',
                         style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(bottom: 20),
                       child: Text(
-                        'Parolni tiklash uchun kerakli ma\'lumotlarni yozing',
+                        'enter_the_required_information_to_reset_your_password'.tr,
                         style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -139,7 +139,7 @@ class _ResetPasswordInitState extends State<ResetPasswordInit> with TickerProvid
                                 controller: data['phone'],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Majburiy maydon';
+                                    return 'required_field'.tr;
                                   }
                                   return null;
                                 },
@@ -192,7 +192,7 @@ class _ResetPasswordInitState extends State<ResetPasswordInit> with TickerProvid
           floatingActionButton: Container(
             margin: EdgeInsets.only(left: 32),
             child: Button(
-              text: 'Продолжить',
+              text: 'proceed'.tr,
               onClick: () {
                 if (_formKey.currentState!.validate()) {
                   resetPasswordInit();

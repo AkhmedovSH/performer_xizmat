@@ -94,7 +94,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
             backgroundColor: Colors.transparent,
             systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark),
             title: Text(
-              'Новые заказы',
+              'new_orders'.tr,
               style: TextStyle(color: globals.black),
             ),
             centerTitle: true,
@@ -136,11 +136,11 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                             Column(
                               children: [
                                 Text(
-                                  'Сортировка',
+                                  'sorting'.tr,
                                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
                                 ),
                                 Text(
-                                  'по бюджету',
+                                  'according_to_the_budget'.tr,
                                   style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500),
                                 )
                               ],
@@ -166,11 +166,11 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Фильтры',
+                                  'filters'.tr,
                                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
                                 ),
                                 Text(
-                                  'Не выбраны',
+                                  'not_selected'.tr,
                                   style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500),
                                 )
                               ],
@@ -185,7 +185,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                           child: Container(
                             margin: EdgeInsets.only(top: 50),
                             child: Text(
-                              'Нет заказов',
+                              'no_orders'.tr,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
@@ -219,17 +219,35 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 15, bottom: 5),
-                                    child: Text('${orders[i]['categoryChildName']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                    child: Text(
+                                      '${orders[i]['categoryChildName']}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(bottom: 5),
-                                    child: Text('бюджет:${orders[i]['orderAmount']} сум',
-                                        style: TextStyle(fontSize: 16, color: globals.lightGrey, fontWeight: FontWeight.bold)),
+                                    child: Text(
+                                      'budget'.tr + ':${orders[i]['orderAmount']} сум',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: globals.lightGrey,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(bottom: 20),
-                                    child: Text('Дата исполнения: 09.20.2021, 13:00',
-                                        style: TextStyle(fontSize: 14, color: globals.lightGrey, fontWeight: FontWeight.w500)),
+                                    child: Text(
+                                      'due_date'.tr + ': 09.20.2021, 13:00',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: globals.lightGrey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
                                     child: Row(
@@ -251,7 +269,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                               ),
                                             ),
                                             child: Text(
-                                              'Откликнуться',
+                                              'respond'.tr,
                                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                                             ),
                                           ),
@@ -272,7 +290,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                               ),
                                             ),
                                             child: Text(
-                                              'Написать',
+                                              'write'.tr,
                                               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.black),
                                             ),
                                           ),
@@ -311,11 +329,23 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text('Фильтр', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                    Text(
+                                      'filter'.tr,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     SizedBox(
                                       height: 5,
                                     ),
-                                    Text('Подбор заказов по параметрам', style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500))
+                                    Text(
+                                      'selection_of_orders_by_parameters'.tr,
+                                      style: TextStyle(
+                                        color: globals.lightGrey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )
                                   ],
                                 ),
                                 IconButton(
@@ -332,7 +362,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                             SizedBox(
                               height: 15,
                             ),
-                            Text('Бюджет (сум)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            Text('budget_sum'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                             SizedBox(
                               height: 10,
                             ),
@@ -343,7 +373,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'От',
+                                      'from'.tr,
                                       style: TextStyle(fontWeight: FontWeight.w500),
                                     ),
                                     SizedBox(
@@ -368,7 +398,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'До',
+                                      'to'.tr,
                                       style: TextStyle(fontWeight: FontWeight.w500),
                                     ),
                                     SizedBox(
@@ -394,7 +424,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                             SizedBox(
                               height: 20,
                             ),
-                            Text('Дата исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            Text('due_date'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                             SizedBox(
                               height: 10,
                             ),
@@ -407,7 +437,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                     Container(
                                       margin: EdgeInsets.only(bottom: 5),
                                       child: Text(
-                                        'От',
+                                        'from'.tr,
                                         style: TextStyle(fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -440,7 +470,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                     Container(
                                       margin: EdgeInsets.only(bottom: 5),
                                       child: Text(
-                                        'До',
+                                        'to'.tr,
                                         style: TextStyle(fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -472,7 +502,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                             SizedBox(
                               height: 20,
                             ),
-                            Text('Время исполнения', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            Text('time_of_completion'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                             SizedBox(
                               height: 10,
                             ),
@@ -485,7 +515,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                     Container(
                                       margin: EdgeInsets.only(bottom: 5),
                                       child: Text(
-                                        'От',
+                                        'from'.tr,
                                         style: TextStyle(fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -518,7 +548,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                                     Container(
                                       margin: EdgeInsets.only(bottom: 5),
                                       child: Text(
-                                        'До',
+                                        'to'.tr,
                                         style: TextStyle(fontWeight: FontWeight.w500),
                                       ),
                                     ),
@@ -561,7 +591,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                               children: [
                                 Icon(Icons.close, color: globals.darkRed),
                                 Text(
-                                  'ЗАКРЫТЬ',
+                                  'close'.tr,
                                   style: TextStyle(color: globals.darkRed, fontSize: 16, fontWeight: FontWeight.bold),
                                 )
                               ],

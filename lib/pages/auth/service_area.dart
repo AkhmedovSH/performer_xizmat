@@ -47,7 +47,7 @@ class _ServiceAreaState extends State<ServiceArea> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Территория оказания услуг',
+        title: 'territory_for_the_provision_of_services'.tr,
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
@@ -76,7 +76,7 @@ class _ServiceAreaState extends State<ServiceArea> {
                             child: Icon(Icons.drive_eta),
                           ),
                           Text(
-                            'Выезжаю к клиенту',
+                            'i_go_to_the_client'.tr,
                             style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -140,7 +140,7 @@ class _ServiceAreaState extends State<ServiceArea> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: widgets.Button(
-          text: 'Применить',
+          text: 'apply'.tr,
           onClick: () {
             if (Get.arguments == 1) {
               Get.offAllNamed('/', arguments: 3);

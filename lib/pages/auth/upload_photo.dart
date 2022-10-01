@@ -45,7 +45,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Загрузите фотографию',
+        title: 'upload_photo'.tr,
         appBar: AppBar(),
       ),
       body: Container(
@@ -57,7 +57,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
             Container(
               margin: EdgeInsets.only(bottom: 25),
               child: Text(
-                'Клиенты больше доверяют специалистам с фото.  Потом его можно будет поменять в анкете.',
+                'clients_trust_specialists_with_photos_more_then_it_can_be_changed_in_the_questionnaire'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 textAlign: TextAlign.center,
               ),
@@ -97,7 +97,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
               },
               child: Center(
                 child: Text(
-                  'Прикрепить фото',
+                  'attach_photo'.tr,
                   style: TextStyle(color: darkRed, fontWeight: FontWeight.w500, fontSize: 18),
                 ),
               ),
@@ -108,7 +108,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: widgets.Button(
-          text: 'Далее',
+          text: 'further'.tr,
           onClick: () {
             Get.toNamed('/speciality', arguments: 1);
           },
@@ -118,16 +118,16 @@ class _UploadPhotoState extends State<UploadPhoto> {
   }
 
   List items = [
-    {'text': 'На фото изображены вы'},
-    {'text': 'Лицо видно полностью'},
-    {'text': 'Размер фото не меньше 100х200 пикселей'},
-    {'text': 'На фото логотип вашей компании'},
+    {'text': 'the_photo_shows_you'.tr},
+    {'text': 'full_face_is_visible'.tr},
+    {'text': 'photo_size_not_less_than_100x200_pixels'.tr},
+    {'text': 'pictured_is_your_company_logo'.tr},
   ];
   List items2 = [
-    {'text': 'На фото вы в затемненных очках или головном уборе'},
-    {'text': 'В кадре есть посторонние люди'},
-    {'text': 'На фото есть надписи или картинки'},
-    {'text': 'На фото есть сигареты, алкоголь, люди без одежды'},
+    {'text': 'in_the_photo_you_are_wearing_tinted_glasses_or_hat'.tr},
+    {'text': 'there_are_strangers_in_the_frame'.tr},
+    {'text': 'there_are_captions_or_pictures_on_the_photo'.tr},
+    {'text': 'there_are_cigarettes_alcohol_people_without_clothes_in_the_photo'.tr},
   ];
 
   dynamic sendData = {};
@@ -176,7 +176,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 23),
                           child: Text(
-                            'Каким должно быть фото',
+                            'what_should_be_the_photo'.tr,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -204,7 +204,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                                         ),
                                       ),
                                       Text(
-                                        'Подходит',
+                                        'fits'.tr,
                                         style: TextStyle(color: green, fontWeight: FontWeight.w500),
                                       )
                                     ],
@@ -227,7 +227,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                                         ),
                                       ),
                                       Text(
-                                        'Не подходит',
+                                        'doesn\'t_fit'.tr,
                                         style: TextStyle(color: darkRed, fontWeight: FontWeight.w500),
                                       )
                                     ],
@@ -247,7 +247,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                               ),
                             ),
                             Text(
-                              'Фото подойдет',
+                              'photo_fit'.tr,
                               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             )
                           ],
@@ -278,7 +278,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                               ),
                             ),
                             Text(
-                              'Фото не подойдет',
+                              'the_photo_doesn\'t_fit'.tr,
                               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             )
                           ],
@@ -347,7 +347,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                             ),
                           ),
                           child: Text(
-                            'Выбрать из галереи',
+                            'select_from_gallery'.tr,
                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                           ),
                         ),

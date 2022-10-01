@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../helpers/globals.dart' ;
+import 'package:get/get.dart';
+
+import '../helpers/globals.dart';
 import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
@@ -26,10 +28,7 @@ class _PaymentState extends State<Payment> {
         filled: true,
         fillColor: inputColor,
         hintText: text,
-        hintStyle: TextStyle(
-            color: Color(0xFF7A7A7A),
-            fontSize: 16,
-            fontWeight: FontWeight.w500),
+        hintStyle: TextStyle(color: Color(0xFF7A7A7A), fontSize: 16, fontWeight: FontWeight.w500),
       ),
       style: TextStyle(color: inputColor),
     );
@@ -39,7 +38,7 @@ class _PaymentState extends State<Payment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Пополнить баланс',
+        title: 'top_up_balance'.tr,
         appBar: AppBar(),
       ),
       body: Container(
@@ -55,11 +54,12 @@ class _PaymentState extends State<Payment> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(bottom: 8),
-                    child: Text('Сумма оплаты',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
+                    child: Text(
+                      'payment_amount'.tr,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
                   ),
-                  buildTextField('Введите сумму')
+                  buildTextField('enter_amount'.tr)
                 ],
               ),
             ),
@@ -70,9 +70,7 @@ class _PaymentState extends State<Payment> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(bottom: 8),
-                    child: Text('Номер карты*',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
+                    child: Text('card_number'.tr + '*', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   ),
                   buildTextField('0000 0000 0000 0000')
                 ],
@@ -85,9 +83,7 @@ class _PaymentState extends State<Payment> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(bottom: 8),
-                    child: Text('Срок действия:',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
+                    child: Text('validity'.tr + ':', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -100,10 +96,7 @@ class _PaymentState extends State<Payment> {
                         margin: EdgeInsets.symmetric(horizontal: 19),
                         child: Text(
                           '/',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF363F4D)),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF363F4D)),
                         ),
                       ),
                       SizedBox(
@@ -122,11 +115,9 @@ class _PaymentState extends State<Payment> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(bottom: 8),
-                    child: Text('Пароль карты',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
+                    child: Text('card_password'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   ),
-                  buildTextField('Введите пароль')
+                  buildTextField('enter_password'.tr)
                 ],
               ),
             ),
@@ -136,7 +127,7 @@ class _PaymentState extends State<Payment> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: widgets.Button(
-          text: 'Подтвердить оплату',
+          text: 'confirm_payment'.tr,
           onClick: () {},
         ),
       ),

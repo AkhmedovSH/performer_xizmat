@@ -106,7 +106,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                     Container(
                       margin: const EdgeInsets.only(bottom: 20),
                       child: Text(
-                        'Raqamingizga yuborilgan kodni yozing',
+                        'enter_the_code_sent_to_your_number'.tr,
                         style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -126,7 +126,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                 inputFormatters: [maskFormatter],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Majburiy maydon';
+                                    return 'required_field'.tr;
                                   }
                                   return null;
                                 },
@@ -171,7 +171,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Majburiy maydon';
+                                    return 'required_field'.tr;
                                   }
                                   return null;
                                 },
@@ -243,7 +243,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
           floatingActionButton: Container(
             margin: EdgeInsets.only(left: 32),
             child: Button(
-              text: 'Продолжить',
+              text: 'proceed'.tr,
               onClick: () {
                 if (_formKey.currentState!.validate()) {
                   checkActivationCode();

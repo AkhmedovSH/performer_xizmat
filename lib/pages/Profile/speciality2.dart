@@ -34,7 +34,7 @@ class _Speciality2State extends State<Speciality2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Мои специальности',
+        title: 'my_specialties'.tr,
         appBar: AppBar(),
       ),
       body: Container(
@@ -45,7 +45,7 @@ class _Speciality2State extends State<Speciality2> {
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 30),
-                child: Text('Категории', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text('categories'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               for (var i = 0; i < items.length; i++)
                 GestureDetector(

@@ -93,7 +93,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
       children: [
         Scaffold(
           appBar: SimpleAppBar(
-            title: 'Регистрация',
+            title: 'registration'.tr,
             appBar: AppBar(),
           ),
           body: SingleChildScrollView(
@@ -324,7 +324,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
           floatingActionButton: Container(
             margin: EdgeInsets.only(left: 32),
             child: Button(
-              text: 'Продолжить',
+              text: 'proceed'.tr,
               onClick: () {
                 if (_formKey.currentState!.validate()) {
                   register();

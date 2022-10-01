@@ -20,7 +20,7 @@ class _SelectCategoryState extends State<SelectCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Выберите категорию',
+        title: 'select_category',
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
@@ -34,7 +34,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                 child: Container(
                   margin: EdgeInsets.only(bottom: 25),
                   child: Text(
-                    'Выберите категорию, в которой вы указываете услуги',
+                    'select_the_category_in_which_you_specify_the_services'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
@@ -55,7 +55,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                     ),
                     filled: true,
                     fillColor: inputColor,
-                    hintText: 'Поиск',
+                    hintText: 'search'.tr,
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
                   style: TextStyle(color: inputColor),

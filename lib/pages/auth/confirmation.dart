@@ -104,7 +104,7 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
       children: [
         Scaffold(
           appBar: SimpleAppBar(
-            title: 'Подтверждение',
+            title: 'confirmation'.tr,
             appBar: AppBar(),
           ),
           body: SingleChildScrollView(
@@ -120,7 +120,7 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
                       child: Container(
                         margin: EdgeInsets.only(bottom: 25),
                         child: Text(
-                          'Введите код из SMS для подтверждения',
+                          'enter_code_from_sms_to_confirm'.tr,
                           style: TextStyle(color: black, fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                       ),
@@ -128,7 +128,7 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
                     Container(
                       margin: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Код из SMS*',
+                        'code_from_sms'.tr + '*',
                         style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -181,7 +181,7 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
                               border: Border(bottom: BorderSide(color: black, width: 1)),
                             ),
                             child: Text(
-                              'Отправить заново',
+                              'send_again'.tr,
                               style: TextStyle(color: black, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -200,7 +200,7 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
           floatingActionButton: Container(
             margin: EdgeInsets.only(left: 32),
             child: widgets.Button(
-              text: 'Подтвердить и продолжить',
+              text: 'confirm_and_continue'.tr,
               onClick: () {
                 if (_formKey.currentState!.validate()) {
                   checkCode();

@@ -363,7 +363,7 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Добавить из галереи'.tr,
+                      'add_from_gallery'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -400,7 +400,7 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Сделать снимок'.tr,
+                      'take_photo'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -429,7 +429,7 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Отмена'.tr,
+                      'cancel'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,

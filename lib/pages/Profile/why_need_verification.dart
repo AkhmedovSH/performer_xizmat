@@ -14,9 +14,9 @@ class WhyNeedVerification extends StatefulWidget {
 
 class _WhyNeedVerificationState extends State<WhyNeedVerification> {
   dynamic items = [
-    {'text': 'Для принятия заказов'},
-    {'text': 'Для защиты ваших интересов'},
-    {'text': 'Для пополнения баланса'},
+    {'text': 'to_accept_orders'.tr},
+    {'text': 'to_protect_your_interests'.tr},
+    {'text': 'to_replenish_the_balance'.tr},
   ];
 
   @override
@@ -34,7 +34,7 @@ class _WhyNeedVerificationState extends State<WhyNeedVerification> {
           children: [
             Container(
               margin: EdgeInsets.only(bottom: 25, top: 25),
-              child: Text('Зачем нужна верификация?',
+              child: Text('why_verification_is_needed'.tr + '?',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             for (var i = 0; i < items.length; i++)
@@ -74,7 +74,7 @@ class _WhyNeedVerificationState extends State<WhyNeedVerification> {
                         child: Icon(Icons.arrow_back, color: globals.red),
                       ),
                       Text(
-                        'Пройти верификацию',
+                        'pass_verification'.tr,
                         style: TextStyle(
                             color: globals.red,
                             fontSize: 17,
@@ -84,7 +84,7 @@ class _WhyNeedVerificationState extends State<WhyNeedVerification> {
                   ),
                 )),
             Text(
-              'Верифицироваться через менеджера',
+              'verify_through_the_manager'.tr,
               style: TextStyle(
                   color: globals.lightGrey,
                   fontSize: 16,

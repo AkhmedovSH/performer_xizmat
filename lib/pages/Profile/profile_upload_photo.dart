@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../helpers/api.dart';
 import '../../helpers/globals.dart';
-import '../../helpers/widgets.dart' as widgets;
+// import '../../helpers/widgets.dart' as widgets;
 
 import '../../../components/simple_app_bar.dart';
 
@@ -104,7 +104,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
     return Scaffold(
       appBar: SimpleAppBar(
         appBar: AppBar(),
-        title: from == 1 ? 'Выши работы' : 'Сертификаты',
+        title: from == 1 ? 'your_works'.tr : 'certificates'.tr,
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 16),
@@ -116,7 +116,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
               margin: EdgeInsets.only(bottom: 35),
               alignment: Alignment.center,
               child: Text(
-                from == 1 ? 'Загрузите фотографии своих работ' : 'Загрузите фотографии своих сертификатов',
+                from == 1 ? 'upload_photos_of_your_work'.tr : 'upload_photos_of_your_certificates'.tr,
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
@@ -189,7 +189,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
                       ),
                     ),
                     Text(
-                      'Прикрепить фото ',
+                      'attach_photo'.tr,
                       style: TextStyle(
                         color: red,
                         fontSize: 17,
@@ -239,7 +239,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Добавить из галереи'.tr,
+                      'add_from_gallery'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -276,7 +276,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Сделать снимок'.tr,
+                      'take_photo'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -305,7 +305,7 @@ class _ProfileUploadPhotoState extends State<ProfileUploadPhoto> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Отмена'.tr,
+                      'cancel'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,

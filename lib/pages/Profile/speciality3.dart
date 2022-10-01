@@ -88,7 +88,7 @@ class _Speciality3State extends State<Speciality3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Мои специальности',
+        title: 'my_specialties'.tr,
         appBar: AppBar(),
       ),
       body: Container(
@@ -99,7 +99,7 @@ class _Speciality3State extends State<Speciality3> {
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 30),
-                child: Text('Специальности', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text('specialties'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               for (var i = 0; i < checkBoxList.length; i++)
                 GestureDetector(
@@ -153,7 +153,7 @@ class _Speciality3State extends State<Speciality3> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: widgets.Button(
-          text: 'Добавить категорию',
+          text: 'save'.tr,
           onClick: () {
             setCategories();
           },

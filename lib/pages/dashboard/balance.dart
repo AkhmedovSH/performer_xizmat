@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
 import '../../helpers/globals.dart' as globals;
 import '../../../widgets.dart' as widgets;
 
@@ -17,7 +19,7 @@ class _BalanceState extends State<Balance> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Баланс',
+        title: 'balance'.tr,
         appBar: AppBar(),
         leading: false,
       ),
@@ -34,20 +36,20 @@ class _BalanceState extends State<Balance> {
               child: Column(
                 children: [
                   Text(
-                    'Текущий баланс',
+                    'current_balance'.tr,
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: Color(0xFF363F4D)),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 5, bottom: 15),
                     child: Text(
-                      '0  сум',
+                      '0' + 'sum'.tr,
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF363F4D)),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 25),
                     child: widgets.Button(
-                      text: 'Пополнить баланс',
+                      text: 'top_up_balance'.tr,
                       onClick: () {
                         // Get.toNamed('/payment');
                       },
@@ -61,7 +63,7 @@ class _BalanceState extends State<Balance> {
                         child: Icon(Icons.support_agent),
                       ),
                       Text(
-                        'Служба поддержки',
+                        'support'.tr,
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       )
                     ],
@@ -72,7 +74,7 @@ class _BalanceState extends State<Balance> {
             Container(
               margin: EdgeInsets.only(bottom: 20),
               child: Text(
-                'История оплат',
+                'payment_history'.tr,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF363F4D)),
               ),
             ),

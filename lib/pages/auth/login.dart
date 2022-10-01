@@ -44,6 +44,12 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   bool showPassword = true;
   bool loading = false;
 
+  List languages = [
+    {'id': '1', 'name': 'Uzbek', 'locale': const Locale('uz-Latn-UZ', ''), 'active': false},
+    {'id': '2', 'name': 'Русский', 'locale': const Locale('ru', ''), 'active': false},
+  ];
+  dynamic currentLocale = '1';
+
   login() async {
     setState(() {
       loading = true;
@@ -115,6 +121,24 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     }
   }
 
+  changeLocale(id) async {
+    int newIndex = int.parse(id);
+    final prefs = await SharedPreferences.getInstance();
+    Get.updateLocale(languages[newIndex - 1]['locale']);
+    prefs.setInt('locale', int.parse(languages[newIndex - 1]['id']));
+    setState(() {
+      currentLocale = id;
+      if (Get.locale == const Locale('ru', '')) {
+        languages[1]['active'] = true;
+        languages[0]['active'] = false;
+      }
+      if (Get.locale == const Locale('uz-Latn-UZ', '')) {
+        languages[0]['active'] = true;
+        languages[1]['active'] = false;
+      }
+    });
+  }
+
   checkIsRemember() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
@@ -133,10 +157,25 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     }
   }
 
+  getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt('locale') != null) {
+      setState(() {
+        if (prefs.getInt('locale') == 1) {
+          currentLocale = '1';
+        }
+        if (prefs.getInt('locale') == 2) {
+          currentLocale = '2';
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     checkIsRemember();
+    getData();
     setState(() {
       animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
     });
@@ -169,14 +208,14 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      'Добро пожаловать в xizmat'.tr,
+                      'welcome_to_xizmat'.tr,
                       style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(bottom: 20),
                     child: Text(
-                      'Войдите в систему чтобы продолжить'.tr,
+                      'sign_in_to_continue'.tr,
                       style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -322,8 +361,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                     });
                                   },
                                 ),
-                                const Text(
-                                  'Запомнить',
+                                Text(
+                                  'remember'.tr,
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
                               ],
@@ -342,7 +381,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 child: Text(
-                                  'Забыли пароль?',
+                                  'forgot_your_password'.tr + '?',
                                   style: TextStyle(
                                     color: red,
                                     fontWeight: FontWeight.w500,
@@ -354,6 +393,49 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        // decoration: BoxDecoration(
+                        //   border: Border(
+                        //     bottom: BorderSide(
+                        //       color: const Color(0xFF9C9C9C),
+                        //       width: 1,
+                        //     ),
+                        //   ),
+                        // ),
+                        child: ButtonTheme(
+                          alignedDropdown: true,
+                          child: DropdownButton(
+                            value: currentLocale,
+                            isExpanded: true,
+                            hint: Text('${languages[0]['name']}'),
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              size: 28,
+                              color: Color(0xFF9C9C9C),
+                            ),
+                            iconSize: 24,
+                            iconEnabledColor: grey,
+                            elevation: 16,
+                            style: const TextStyle(color: Color(0xFF313131)),
+                            underline: Container(),
+                            onChanged: (newValue) {
+                              changeLocale(newValue);
+                            },
+                            items: languages.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: '${item['id']}',
+                                child: Text(item['name']),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

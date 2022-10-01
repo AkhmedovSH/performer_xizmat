@@ -151,7 +151,7 @@ class _UpdateUserState extends State<UpdateUser> {
       extendBodyBehindAppBar: true,
       appBar: SimpleAppBar(
         appBar: AppBar(),
-        title: 'Настройка',
+        title: 'setting'.tr,
         leading: true,
       ),
       body: SingleChildScrollView(
@@ -203,7 +203,7 @@ class _UpdateUserState extends State<UpdateUser> {
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: red),
                               ),
-                              labelText: 'Имя'.tr,
+                              labelText: 'name'.tr,
                               labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
                             style: const TextStyle(color: Color(0xFF9C9C9C)),
@@ -256,7 +256,7 @@ class _UpdateUserState extends State<UpdateUser> {
                                 errorStyle: TextStyle(
                                   color: Theme.of(context).errorColor,
                                 ),
-                                labelText: 'Дата рождения'.tr,
+                                labelText: 'date_of_birth'.tr,
                                 labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
                               style: const TextStyle(color: Color(0xFF9C9C9C)),
@@ -295,7 +295,7 @@ class _UpdateUserState extends State<UpdateUser> {
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: red),
                               ),
-                              labelText: 'Пол'.tr,
+                              labelText: 'gender'.tr,
                               labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
                             style: const TextStyle(color: Color(0xFF9C9C9C)),
@@ -409,7 +409,7 @@ class _UpdateUserState extends State<UpdateUser> {
             Container(
               margin: EdgeInsets.only(bottom: 10),
               child: widgets.Button(
-                text: 'Сохранить',
+                text: 'save'.tr,
                 onClick: () {
                   if (_formKey.currentState!.validate()) {
                     updateUser();
