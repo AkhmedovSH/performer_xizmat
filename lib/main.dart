@@ -20,14 +20,14 @@ import 'pages/dashboard/support.dart';
 // Profile
 
 import 'pages/dashboard/profile.dart';
-import 'pages/Profile/speciality.dart';
-import 'pages/Profile/speciality2.dart';
-import 'pages/Profile/speciality3.dart';
-import 'pages/Profile/add_category.dart';
-import 'pages/Profile/category_inside.dart';
-import 'pages/Profile/why_need_verification.dart';
-import 'pages/Profile/about_me.dart';
-import 'pages/Profile/profile_upload_photo.dart';
+import 'pages/profile/speciality.dart';
+import 'pages/profile/speciality2.dart';
+import 'pages/profile/speciality3.dart';
+import 'pages/profile/add_category.dart';
+import 'pages/profile/category_inside.dart';
+import 'pages/profile/why_need_verification.dart';
+import 'pages/profile/about_me.dart';
+import 'pages/profile/profile_upload_photo.dart';
 
 // Auth
 
@@ -47,12 +47,12 @@ import 'pages/auth/reset_password/reset_password_finish.dart';
 
 // Orders
 
-import 'pages/Order/proposed_orders.dart';
-import 'pages/Order/current_orders.dart';
-import 'pages/Order/completed_orders.dart';
-import 'pages/Order/about_new_order.dart';
-import 'pages/Order/about_offered_order.dart';
-import 'pages/Order/about_completed_order.dart';
+import 'pages/order/proposed_orders.dart';
+import 'pages/order/current_orders.dart';
+import 'pages/order/completed_orders.dart';
+import 'pages/order/about_new_order.dart';
+import 'pages/order/about_offered_order.dart';
+import 'pages/order/about_completed_order.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -48,7 +48,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     {'id': '1', 'name': 'Uzbek', 'locale': const Locale('uz-Latn-UZ', ''), 'active': false},
     {'id': '2', 'name': 'Русский', 'locale': const Locale('ru', ''), 'active': false},
   ];
-  dynamic currentLocale = '1';
+  dynamic currentLocale = '2';
 
   login() async {
     setState(() {
@@ -161,10 +161,13 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getInt('locale') != null) {
       setState(() {
+        print(prefs.getInt('locale'));
         if (prefs.getInt('locale') == 1) {
           currentLocale = '1';
+          Get.updateLocale(languages[0]['locale']);
         }
         if (prefs.getInt('locale') == 2) {
+          Get.updateLocale(languages[1]['locale']);
           currentLocale = '2';
         }
       });
@@ -361,9 +364,16 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                     });
                                   },
                                 ),
-                                Text(
-                                  'remember'.tr,
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      sendData['isRemember'] = !sendData['isRemember'];
+                                    });
+                                  },
+                                  child: Text(
+                                    'remember'.tr,
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  ),
                                 ),
                               ],
                             ),
@@ -456,12 +466,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'no_account'.tr + '?',
-                      style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                    ),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed('/register');
