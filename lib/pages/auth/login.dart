@@ -72,6 +72,13 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     }
     if (response != null) {
       prefs.setString('access_token', response['access_token'].toString());
+      setState(() {
+        sendData['lastLogin'] = {
+          'year': DateTime.now().year,
+          'month': DateTime.now().month,
+          'day': DateTime.now().day,
+        };
+      });
       prefs.setString('user', jsonEncode(sendData));
       var account = await get('/services/uaa/api/account');
       var checkAccess = false;
@@ -143,6 +150,10 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       final user = jsonDecode(prefs.getString('user')!);
+      print(daysBetween(user['lastLogin'], DateTime(2023, 3, 20)));
+      // if (user['lastLogin']) {
+
+      // }
       if (user['isRemember'] != null) {
         if (user['isRemember']) {
           setState(() {

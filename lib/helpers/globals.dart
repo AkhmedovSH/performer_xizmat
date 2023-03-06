@@ -23,6 +23,12 @@ formatUnixTime(unixTime) {
   return DateFormat('dd.MM.yyyy HH:mm').format(dt);
 }
 
+int daysBetween(from, DateTime to) {
+  from = DateTime(from['year'], from['month'], from['day']);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
+}
+
 formatMoney(amount) {
   if (amount != null && amount != '') {
     amount = double.parse(amount.toString());

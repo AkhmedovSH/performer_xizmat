@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:xizmat/helpers/api.dart';
@@ -68,14 +70,27 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  startTimer() {
-    var _duration = const Duration(milliseconds: 2000);
-    return Timer(_duration, navigate);
+  startTimer() async {
+    bool isLogined = false;
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user') != null) {
+      final user = jsonDecode(prefs.getString('user')!);
+      print(daysBetween(user['lastLogin'], DateTime(2023, 3, 20)));
+      if (daysBetween(user['lastLogin'], DateTime.now()) < 1) {
+        isLogined = true;
+      }
+    }
+    var duration = const Duration(milliseconds: 2000);
+    return Timer(duration, () {
+      if (isLogined) {
+        Get.offAllNamed('/');
+      } else {
+        Get.offAllNamed('/login');
+      }
+    });
   }
 
-  void navigate() async {
-    Get.offAllNamed('/login');
-  }
+  void navigate() async {}
 
   @override
   Widget build(BuildContext context) {

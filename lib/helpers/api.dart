@@ -14,8 +14,8 @@ const hostUrl = 'https://admin.xizmat24.uz';
 BaseOptions options = BaseOptions(
   baseUrl: hostUrl,
   receiveDataWhenStatusError: true,
-  connectTimeout: 20 * 1000, // 10 seconds
-  receiveTimeout: 20 * 1000, // 10 seconds
+  connectTimeout: Duration(seconds: 10), // 10 seconds
+  receiveTimeout: Duration(seconds: 10), // 10 seconds
 );
 var dio = Dio(options);
 

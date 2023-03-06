@@ -362,7 +362,11 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                             SizedBox(
                               height: 15,
                             ),
-                            Text('budget_sum'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            Text('budget_sum'.tr,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                )),
                             SizedBox(
                               height: 10,
                             ),
@@ -424,7 +428,11 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
                             SizedBox(
                               height: 20,
                             ),
-                            Text('due_date'.tr, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            Text('due_date'.tr,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                )),
                             SizedBox(
                               height: 10,
                             ),

@@ -8,11 +8,7 @@ class LocalNotificationService {
   static void initialize(BuildContext context) {
     InitializationSettings initializationSettings = const InitializationSettings(android: AndroidInitializationSettings('@mipmap/launcher_icon'));
 
-    _notificationsPlugin.initialize(initializationSettings, onSelectNotification: (String? route) async {
-      if (route != null) {
-        // Navigator.of(context).pushNamed(route);
-      }
-    });
+    _notificationsPlugin.initialize(initializationSettings);
   }
 
   static void display(RemoteMessage message) async {
